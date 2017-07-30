@@ -5,48 +5,109 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public float speed;
-    Vector2 dest = Vector2.zero;
+    private float previousVel;
+    private bool isButtonDown;
+    private Vector2 movement;
+    private Rigidbody2D RB2D;
 
-	// Use this for initialization
-	private void Start ()
+    private float horizontal;
+    private float vertical;
+
+    public enum MovementState
     {
-        dest = transform.position;
-	}
+        Right,
+        Left,
+        Up,
+        Down
+    };
+    public MovementState moveState;
+
+    // Use this for initialization
+    private void Start ()
+    {
+        RB2D = GetComponent<Rigidbody2D>();
+        //movement = Vector3.right;
+    }
 
     private void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+		horizontal = Input.GetAxis("Horizontal");
+		vertical = Input.GetAxis("Vertical");
 
-        transform.position += new Vector3(horizontal, vertical) * speed * Time.deltaTime;
+        isButtonDown = IsButtonHeldDown();
+        //transform.position += new Vector3(horizontal, vertical) * speed * Time.deltaTime;
+        movement = new Vector2(horizontal, vertical);
+        RB2D.velocity = movement * speed;
+
+        //velocity = ((transform.position - previous).magnitude) / Time.deltaTime;
+        //previous = transform.position
+
+        /*if (isButtonDown)
+        {
+			if (RB2D.velocity.x > 0.5)
+			{
+                moveState = MovementState.Right;
+			}
+			else if (RB2D.velocity.x < -0.5)
+			{
+                moveState = MovementState.Left;
+			}
+			else if (RB2D.velocity.y > 0.5)
+			{
+                moveState = MovementState.Up;
+			}
+			else if (RB2D.velocity.y < -0.5)
+			{
+                moveState = MovementState.Down;
+			} 
+        }*/
+
+        MoveDirection();
     }
 
-    // Update is called once per frame
-    /* private void FixedUpdate()
-     {
-         Vector2 p = Vector2.MoveTowards(transform.position, Dest, Speed);
-         GetComponent<Rigidbody2D>().MovePosition(p);
+    private bool IsButtonHeldDown()
+    {
+        if (horizontal != 0 || vertical != 0)
+        {
+            return true;   
+        }
+        else
+        {
+            return false;
+        }
 
-         // Check for Input if not moving
-         if ((Vector2)transform.position == Dest)
-         {
-             if (Input.GetKey(KeyCode.UpArrow))
-                 Dest = (Vector2)transform.position + Vector2.up;
-             if (Input.GetKey(KeyCode.RightArrow))
-                 Dest = (Vector2)transform.position + Vector2.right;
-             if (Input.GetKey(KeyCode.DownArrow))
-                 Dest = (Vector2)transform.position - Vector2.up;
-             if (Input.GetKey(KeyCode.LeftArrow))
-                 Dest = (Vector2)transform.position - Vector2.right;
-         }
-     }
+    }
 
-     private bool IsValid(Vector2 dir)
-     {
-         Vector2 pos = transform.position;
-         RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
-         return (hit.collider == GetComponent<Collider2D>());
-     }*/
+    private void MoveDirection()
+    {
+        
+        //if (NewState == moveState) return;
+
+        switch(moveState)
+        {
+            case MovementState.Right:
+            {
+				movement = Vector2.right;
+				break;
+            }
+            case MovementState.Left:
+            {
+                movement = Vector2.left;
+                break;
+            }
+            case MovementState.Up:
+			{
+                movement = Vector2.up;
+				break;
+			}
+            case MovementState.Down:
+			{
+                movement = Vector2.down;
+				break;
+			}
+        }
+
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
