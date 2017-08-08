@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour {
 
     private bool isDead;
-
+    public Transform Destination;
     public enum EnemyStates
     {
         Wandering,
@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour {
     // Use this for initialization
 	private void Start ()
     {
-		
+        GetComponent<PolyNavAgent>().SetDestination(Destination.position);
 	}
 	
 	// Update is called once per frame

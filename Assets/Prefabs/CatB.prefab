@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 95201158553343442}
   - component: {fileID: 114322229300285536}
   - component: {fileID: 114180846467790286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CatB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d35be2b9ee6d6b4e8c68adee884b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Destination: {fileID: 0}
   _enemyStates: 0
 --- !u!114 &114322229300285536
 MonoBehaviour:

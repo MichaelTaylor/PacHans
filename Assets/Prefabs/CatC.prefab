@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 95565360850753604}
   - component: {fileID: 114170171146226826}
   - component: {fileID: 114836257134750204}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CatC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d35be2b9ee6d6b4e8c68adee884b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Destination: {fileID: 0}
   _enemyStates: 0
 --- !u!212 &212662386375873122
 SpriteRenderer:
