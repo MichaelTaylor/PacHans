@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TeleportLogic : MonoBehaviour {
 
-    public float _xPositionOffset;
+    //public float _xPositionOffset;
     public Transform _oppositeTeleporter;
-
     public TeleportLogic _teleporterLogic;
+    private bool _isOccupied;
 
     private void Start()
     {
@@ -16,11 +16,20 @@ public class TeleportLogic : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (_isOccupied) return;
         TeleportPlayer(collision.gameObject); 
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!_isOccupied) return;
+        _isOccupied = false;
+        //Debug.Log("Not Occupied");
     }
 
     public void TeleportPlayer(GameObject Player)
     {
-        Player.transform.position = new Vector2(_oppositeTeleporter.position.x + _xPositionOffset, _oppositeTeleporter.position.y);
+        Player.transform.position = _oppositeTeleporter.position;
+        _teleporterLogic._isOccupied = true;
     }
 }
