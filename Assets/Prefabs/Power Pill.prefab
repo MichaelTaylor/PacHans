@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 95531043193703500}
   - component: {fileID: 114770222767052584}
   - component: {fileID: 61788268143038572}
-  - component: {fileID: 114422659620315928}
   m_Layer: 0
   m_Name: Power Pill
   m_TagString: Untagged
@@ -86,19 +85,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114422659620315928
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1473580112263552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45d3ea7807484415aad75ee242f0656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemType: 1
-  numPoints: 0
 --- !u!114 &114770222767052584
 MonoBehaviour:
   m_ObjectHideFlags: 1

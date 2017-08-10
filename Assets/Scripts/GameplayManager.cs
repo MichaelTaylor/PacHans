@@ -9,29 +9,33 @@ public class GameplayManager : MonoBehaviour
     public Text scoreText;
 
     public GameObject player;
-    public List<GameObject> enemies = new List<GameObject>();
+
+    public List<EnemyBehavior> enemies = new List<EnemyBehavior>();
+    public List<GameObject> pellets = new List<GameObject>();
+    public List<Transform> powerUpTransform = new List<Transform>();
 
     public bool poweredUp;
 
     public static GameplayManager instance;
-
-	private void SingletonFunction()
-	{
-		if (GameplayManager.instance == null)
-		{
-			GameplayManager.instance = this;
-		}
-		else
-		{
-			Destroy(this.gameObject);
-		}
-	}
 
 	// Use this for initialization
 	private void Start()
 	{
 		SingletonFunction();
         scoreText.text = "Score: " + score.ToString();
+	}
+
+	private void SingletonFunction()
+	{
+		if (GameplayManager.instance == null)
+		{
+			GameplayManager.instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else
+		{
+			Destroy(this.gameObject);
+		}
 	}
 
 	public void UpdateScore(float addScore)
@@ -45,7 +49,7 @@ public class GameplayManager : MonoBehaviour
         poweredUp = true;
         for (int i = 0; i < enemies.Count; i++)
         {
-            //TODO: make them scared cats
+            enemies[i].SetState(EnemyBehavior.EnemyStates.Scared);
         }
     }
 }

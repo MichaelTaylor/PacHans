@@ -34,88 +34,17 @@ public class PlayerMovement : MonoBehaviour {
 		horizontal = Input.GetAxis("Horizontal");
 		vertical = Input.GetAxis("Vertical");
 
-        isButtonDown = IsButtonHeldDown();
-        //transform.position += new Vector3(horizontal, vertical) * speed * Time.deltaTime;
         movement = new Vector2(horizontal, vertical);
         RB2D.velocity = movement * speed;
-
-        //velocity = ((transform.position - previous).magnitude) / Time.deltaTime;
-        //previous = transform.position
-
-        /*if (isButtonDown)
-        {
-			if (RB2D.velocity.x > 0.5)
-			{
-                moveState = MovementState.Right;
-			}
-			else if (RB2D.velocity.x < -0.5)
-			{
-                moveState = MovementState.Left;
-			}
-			else if (RB2D.velocity.y > 0.5)
-			{
-                moveState = MovementState.Up;
-			}
-			else if (RB2D.velocity.y < -0.5)
-			{
-                moveState = MovementState.Down;
-			} 
-        }*/
-
-        MoveDirection();
-    }
-
-    private bool IsButtonHeldDown()
-    {
-        if (horizontal != 0 || vertical != 0)
-        {
-            return true;   
-        }
-        else
-        {
-            return false;
-        }
-
-    }
-
-    private void MoveDirection()
-    {
-        
-        //if (NewState == moveState) return;
-
-        switch(moveState)
-        {
-            case MovementState.Right:
-            {
-				movement = Vector2.right;
-				break;
-            }
-            case MovementState.Left:
-            {
-                movement = Vector2.left;
-                break;
-            }
-            case MovementState.Up:
-			{
-                movement = Vector2.up;
-				break;
-			}
-            case MovementState.Down:
-			{
-                movement = Vector2.down;
-				break;
-			}
-        }
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Hit");
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger");
+        
     }
 }

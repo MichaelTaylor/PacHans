@@ -13,6 +13,24 @@ public class ItemBehavior : MonoBehaviour {
 
     public float numPoints;
 
+    private void Start()
+    {
+        Invoke("AddToList", 0.1f);
+	}
+
+	private void AddToList()
+	{
+		if (itemType == ItemType.pellets)
+		{
+			GameplayManager.instance.pellets.Add((gameObject));
+		}
+        else
+        {
+            GameplayManager.instance.powerUpTransform.Add((gameObject.transform));
+        }
+	}
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         gameObject.SetActive(false);
