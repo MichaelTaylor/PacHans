@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
     private float score;
     public Text scoreText;
+    public AudioClip _musicIntro;
+    public AudioClip _gameOverSFX;
+    public bool _isGameOver;
 
     public GameObject player;
 
@@ -19,12 +23,18 @@ public class GameplayManager : MonoBehaviour
     public bool poweredUp;
     public float powerUpDuration;
 
+    public GameObject _smokeObject;
+    public int _smokeAmount;
+    private List<GameObject> _listOfSmoke = new List<GameObject>();
+
     public static GameplayManager instance;
 
     // Use this for initialization
     private void Start()
     {
         SingletonFunction();
+        PoolSmoke();
+        Intro();
         scoreText.text = "Score: " + score.ToString();
     }
 
@@ -39,6 +49,34 @@ public class GameplayManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    
+    private void PoolSmoke()
+    {
+        for (int i = 0; i < _smokeAmount; i++)
+        {
+            GameObject _newSmokeObject = Instantiate(_smokeObject, transform.position, Quaternion.identity);
+            _newSmokeObject.SetActive(false);
+            _listOfSmoke.Add(_newSmokeObject);
+        }
+    }
+
+    public void ShowSmoke(Vector2 _smokeTransform)
+    {
+        _listOfSmoke[Random.Range(0, _listOfSmoke.Count)].SetActive(false);
+    }
+
+    private void Intro()
+    {
+        Time.timeScale = 0f;
+        AudioManager.instance.PlaySFX(_musicIntro);
+        StartCoroutine(TimeResume(4.5f));
+    }
+
+    private IEnumerator TimeResume(float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+        Time.timeScale = 1f;
     }
 
     public void UpdateScore(float addScore)
@@ -65,5 +103,18 @@ public class GameplayManager : MonoBehaviour
         {
             enemies[i].ReturnToLife();
         }
+    }
+
+    public void StartGameOver()
+    {
+        if (!_isGameOver) return;
+        StartCoroutine(GameOver(3f));
+        AudioManager.instance.PlaySFX(_gameOverSFX);
+    }
+
+    private IEnumerator GameOver(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene("Game Over Scene");
     }
 }

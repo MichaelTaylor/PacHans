@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     public float speed;
     public float _raycastLength;
     private bool isButtonDown;
+    public bool isDead;
     private Vector2 movement;
     private Rigidbody2D RB2D;
 
@@ -43,9 +44,15 @@ public class PlayerMovement : MonoBehaviour {
     {
         RB2D = GetComponent<Rigidbody2D>();
         startingVector = transform.position;
+        Invoke("AddToList", 0.1f);
         //movement = Vector3.right;
         _raycastFunctions += DirectionRaycast;
         _raycastFunctions += DebugRays;
+    }
+
+    private void AddToList()
+    {
+        GameplayManager.instance.player = gameObject;
     }
 
     private void FixedUpdate()
@@ -91,7 +98,15 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Update()
     {
-        MovementFunction();
+        if (!isDead)
+        {
+            MovementFunction();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            GameplayManager.instance.ShowSmoke(transform.position);
+        }     
     }
 
     private void MovementFunction()
@@ -99,7 +114,7 @@ public class PlayerMovement : MonoBehaviour {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        if (Input.GetButtonDown("Horizontal"))
+        if (Input.GetButton("Horizontal"))
         {
             //isButtonDown = true;
 
@@ -118,7 +133,7 @@ public class PlayerMovement : MonoBehaviour {
                 }
             }
         }
-        else if (Input.GetButtonDown("Vertical"))
+        else if (Input.GetButton("Vertical"))
         {
             //isButtonDown = true;
 
@@ -173,15 +188,5 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         RB2D.velocity = movement * speed;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
     }
 }

@@ -70,6 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   numPoints: 10
+  _pelletSFX: {fileID: 8300000, guid: d0535c9c7469a8148a5f12dddc2a0148, type: 3}
+  _powerUpSFX: {fileID: 8300000, guid: aff9978df3911074f866c11691fe91bc, type: 3}
 --- !u!212 &212611969485863604
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -12,6 +12,8 @@ public class ItemBehavior : MonoBehaviour {
 	public ItemType itemType;
 
     public float numPoints;
+    public AudioClip _pelletSFX;
+    public AudioClip _powerUpSFX;
 
     private void Start()
     {
@@ -49,10 +51,12 @@ public class ItemBehavior : MonoBehaviour {
     private void AddPoints()
     {
 		GameplayManager.instance.UpdateScore(numPoints);
+        AudioManager.instance.PlaySFX(_pelletSFX);
     }
 
     private void PowerUp()
     {
         GameplayManager.instance.PowerUp();
+        AudioManager.instance.PlaySFX(_powerUpSFX);
     }
 }

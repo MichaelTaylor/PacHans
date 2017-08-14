@@ -88,7 +88,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 1.375}
+  m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
 --- !u!95 &95565360850753604
 Animator:
@@ -123,8 +123,8 @@ MonoBehaviour:
   mass: 110
   stoppingDistance: 0
   slowingDistance: 1
-  accelerationRate: 2
-  decelerationRate: 2
+  accelerationRate: 5
+  decelerationRate: 5
   lookAheadDistance: 3
   avoidRadius: 0.01
   centerOffset: {x: 0, y: 0}
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalSpeed: 5
   _scaredSpeed: 2
+  _deadSpeed: 10
   _distanceThreshold: 1
   _BehaviourTime: 0
   _maxBehaviourTime: 0

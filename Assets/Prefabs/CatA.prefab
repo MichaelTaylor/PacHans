@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 61348751487508064}
   - component: {fileID: 114865066804329834}
   - component: {fileID: 114423567755509952}
+  - component: {fileID: 50824992354228222}
   m_Layer: 8
   m_Name: CatA
-  m_TagString: Untagged
+  m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,6 +45,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50824992354228222
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596842059121670}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &61348751487508064
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -67,7 +88,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 1.375}
+  m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
 --- !u!95 &95370603863379578
 Animator:
@@ -99,10 +120,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalSpeed: 5
   _scaredSpeed: 2
+  _deadSpeed: 10
   _distanceThreshold: 1
   _BehaviourTime: 0
   _maxBehaviourTime: 0
-  _enemyStates: 0
+  _runMultiplier: 1
+  _enemyStates: 2
 --- !u!114 &114865066804329834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,10 +142,10 @@ MonoBehaviour:
   mass: 110
   stoppingDistance: 0
   slowingDistance: 1
-  accelerationRate: 2
-  decelerationRate: 2
+  accelerationRate: 5
+  decelerationRate: 5
   lookAheadDistance: 3
-  avoidRadius: 0.5
+  avoidRadius: 0.01
   centerOffset: {x: 0, y: 0}
   rotateTransform: 0
   rotateSpeed: 350

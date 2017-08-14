@@ -17,6 +17,7 @@ public class EnemyBehavior : MonoBehaviour {
     public float _BehaviourTime;
     public float _maxBehaviourTime;
     public float _runMultiplier;
+    public AudioClip _deathSFX;
     public enum EnemyStates
     {
         Idle,
@@ -38,7 +39,7 @@ public class EnemyBehavior : MonoBehaviour {
         Invoke("AddToList", 0.1f);
         GetProperties();
         _polyNavAgent.maxSpeed = _normalSpeed;
-	}
+    }
 
     private void GetProperties()
     {
@@ -51,8 +52,14 @@ public class EnemyBehavior : MonoBehaviour {
 		if (GameplayManager.instance != null)
 		{
 			GameplayManager.instance.enemies.Add(this);
-            SetState(EnemyStates.Wandering);
-		}  
+            StartCoroutine(BeginBehavior(3f));
+        }  
+    }
+
+    private IEnumerator BeginBehavior(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SetState(EnemyStates.Chasing);
     }
 
 	// Update is called once per frame
@@ -130,7 +137,7 @@ public class EnemyBehavior : MonoBehaviour {
     private void Enemy_Scared()
     {
         //TODO: RUN AWAY FROM PLAYER
-        _polyNavAgent.maxSpeed = _scaredSpeed;
+       // _polyNavAgent.maxSpeed = _scaredSpeed;
         _anim.SetBool("IsScared", true);
 
         if (Destination == null)
@@ -201,6 +208,16 @@ public class EnemyBehavior : MonoBehaviour {
             {
                 SetState(EnemyStates.Dead);
                 _anim.SetBool("IsDead", true);
+                AudioManager.instance.PlaySFX(_deathSFX);
+                GameplayManager.instance.ShowSmoke(transform.position);
+            }
+            else if (_enemyStates != EnemyStates.Dead && _enemyStates != EnemyStates.Scared)
+            {
+                SetState(EnemyStates.Idle);
+                col.gameObject.GetComponent<PlayerMovement>().isDead = true;
+                GameplayManager.instance._isGameOver = true;
+                GameplayManager.instance.StartGameOver();
+                _polyNavAgent.maxSpeed = 0f;
             }
         }
     }
