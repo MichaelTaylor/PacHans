@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 95531043193703500}
   - component: {fileID: 114770222767052584}
   - component: {fileID: 61788268143038572}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Power Pill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

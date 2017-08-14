@@ -97,7 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d35be2b9ee6d6b4e8c68adee884b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destination: {fileID: 0}
+  _normalSpeed: 5
+  _scaredSpeed: 2
+  _distanceThreshold: 1
+  _BehaviourTime: 0
+  _maxBehaviourTime: 0
   _enemyStates: 0
 --- !u!114 &114322229300285536
 MonoBehaviour:
@@ -111,14 +115,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 0}
-  maxSpeed: 3.5
-  mass: 20
-  stoppingDistance: 0.1
+  maxSpeed: 5
+  mass: 110
+  stoppingDistance: 0
   slowingDistance: 1
   accelerationRate: 2
   decelerationRate: 2
-  lookAheadDistance: 1
-  avoidRadius: 0
+  lookAheadDistance: 3
+  avoidRadius: 0.5
   centerOffset: {x: 0, y: 0}
   rotateTransform: 0
   rotateSpeed: 350
