@@ -127,10 +127,13 @@ public class EnemyBehavior : MonoBehaviour {
 
         _BehaviourTime += Time.deltaTime;
 
-        if (_BehaviourTime > _maxBehaviourTime && !isDead)
+        if (_BehaviourTime > _maxBehaviourTime)
         {
-            _BehaviourTime = 0f;
-            SetState(EnemyStates.Chasing);
+            if (_enemyStates != EnemyStates.Scared || _enemyStates != EnemyStates.Dead)
+            {
+                _BehaviourTime = 0f;
+                SetState(EnemyStates.Chasing);
+            }
         }
     }
     
