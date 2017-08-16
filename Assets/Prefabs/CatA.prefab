@@ -123,8 +123,9 @@ MonoBehaviour:
   _deadSpeed: 10
   _distanceThreshold: 1
   _BehaviourTime: 0
-  _maxBehaviourTime: 0
+  _maxBehaviourTime: 3
   _runMultiplier: 1
+  _deathSFX: {fileID: 0}
   _enemyStates: 2
 --- !u!114 &114865066804329834
 MonoBehaviour:

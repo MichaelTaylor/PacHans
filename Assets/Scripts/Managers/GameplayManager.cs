@@ -9,6 +9,7 @@ public class GameplayManager : MonoBehaviour
     private float score;
     public Text scoreText;
     public AudioClip _musicIntro;
+    public AudioClip _clearGame;
     public AudioClip _gameOverSFX;
     public bool _isGameOver;
 
@@ -27,15 +28,14 @@ public class GameplayManager : MonoBehaviour
     public int _smokeAmount;
     private List<GameObject> _listOfSmoke = new List<GameObject>();
 
+    public UserInterfaceController _userInterfaceController;
     public static GameplayManager instance;
 
     // Use this for initialization
     private void Start()
     {
         SingletonFunction();
-        PoolSmoke();
-        Intro();
-        scoreText.text = "Score: " + score.ToString();
+        Debug.Log("Start");
     }
 
     private void SingletonFunction()
@@ -63,19 +63,24 @@ public class GameplayManager : MonoBehaviour
 
     public void ShowSmoke(Vector2 _smokeTransform)
     {
-        _listOfSmoke[Random.Range(0, _listOfSmoke.Count)].SetActive(false);
+        int _smokeIndex = Random.Range(0, _listOfSmoke.Count);
+        _listOfSmoke[_smokeIndex].transform.position = _smokeTransform;
+        _listOfSmoke[_smokeIndex].SetActive(true);
+        
     }
 
-    private void Intro()
+    public void Intro()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 0.0000001f;
         AudioManager.instance.PlaySFX(_musicIntro);
-        StartCoroutine(TimeResume(4.5f));
+        scoreText.text = "Score: " + score.ToString();
+        StartCoroutine(TimeResume(0.0000001f * 4.5f));
     }
 
     private IEnumerator TimeResume(float seconds)
     {
-        yield return new WaitForSecondsRealtime(seconds);
+        yield return new WaitForSeconds(seconds);
+        PoolSmoke();
         Time.timeScale = 1f;
     }
 
@@ -83,6 +88,22 @@ public class GameplayManager : MonoBehaviour
     {
         score += addScore;
         scoreText.text = "Score: " + score.ToString();
+    }
+
+    private void Update()
+    {
+        if (player == null) return;
+        if (score > 0)
+        {
+            if (pellets.Count <= 0 && !_isGameOver)
+            {
+                if (!player.GetComponent<PlayerMovement>().isDead)
+                {
+                    _isGameOver = true;
+                    StartWinGame();
+                }         
+            }
+        } 
     }
 
     public void PowerUp()
@@ -105,9 +126,20 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    public void StartWinGame()
+    {
+        StartCoroutine(WinGame(3f));
+        AudioManager.instance.PlaySFX(_clearGame);
+    }
+
+    private IEnumerator WinGame(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        ResetValues(true);
+    }
+
     public void StartGameOver()
     {
-        if (!_isGameOver) return;
         StartCoroutine(GameOver(3f));
         AudioManager.instance.PlaySFX(_gameOverSFX);
     }
@@ -115,6 +147,25 @@ public class GameplayManager : MonoBehaviour
     private IEnumerator GameOver(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene("Game Over Scene");
+        ResetValues(false);
+        _userInterfaceController.GameplayToGameOver();
+    }
+
+    public void LoadNextScene(string _nextScene)
+    {
+        SceneManager.LoadScene(_nextScene);
+    }
+
+    private void ResetValues(bool _didWin)
+    {
+        enemies.Clear();
+        pellets.Clear();
+        powerUpTransform.Clear();
+        _listOfSmoke.Clear();
+
+        if (!_didWin) return;
+        Time.timeScale = 0.0000001f;
+        StartCoroutine(TimeResume(0.0000001f * 4.5f));
+        GameplayManager.instance.LoadNextScene("Main Scene");
     }
 }

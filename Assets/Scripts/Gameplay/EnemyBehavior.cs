@@ -59,7 +59,7 @@ public class EnemyBehavior : MonoBehaviour {
     private IEnumerator BeginBehavior(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SetState(EnemyStates.Chasing);
+        SetState(EnemyStates.Wandering);
     }
 
 	// Update is called once per frame
@@ -123,6 +123,14 @@ public class EnemyBehavior : MonoBehaviour {
             _newDestinationIndex = SetNewIndex();
 			SetNewDestination(GameplayManager.instance.powerUpTransform[_newDestinationIndex]);
         }
+
+        _BehaviourTime += Time.deltaTime;
+
+        if (_BehaviourTime > _maxBehaviourTime && !isDead)
+        {
+            _BehaviourTime = 0f;
+            SetState(EnemyStates.Chasing);
+        }
     }
     
     private void Enemy_Chasing()
@@ -167,12 +175,14 @@ public class EnemyBehavior : MonoBehaviour {
     private void Enemy_Dead()
     {
         _polyNavAgent.maxSpeed = _deadSpeed;
+        isDead = true;
         GetComponent<BoxCollider2D>().enabled = false;
         SetNewDestination(GameplayManager.instance._enemyReturnPoint);
 
         if (_distance < _distanceThreshold)
         {
             SetState(EnemyStates.Chasing);
+            isDead = false;
             _anim.SetBool("IsDead", false);
         }
     }
@@ -215,7 +225,6 @@ public class EnemyBehavior : MonoBehaviour {
             {
                 SetState(EnemyStates.Idle);
                 col.gameObject.GetComponent<PlayerMovement>().isDead = true;
-                GameplayManager.instance._isGameOver = true;
                 GameplayManager.instance.StartGameOver();
                 _polyNavAgent.maxSpeed = 0f;
             }

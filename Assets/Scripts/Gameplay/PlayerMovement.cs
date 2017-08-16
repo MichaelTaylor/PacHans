@@ -104,8 +104,8 @@ public class PlayerMovement : MonoBehaviour {
         }
         else
         {
-            gameObject.SetActive(false);
             GameplayManager.instance.ShowSmoke(transform.position);
+            gameObject.SetActive(false);
         }     
     }
 

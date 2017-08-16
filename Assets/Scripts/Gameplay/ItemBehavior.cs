@@ -26,10 +26,10 @@ public class ItemBehavior : MonoBehaviour {
 		{
 			GameplayManager.instance.pellets.Add((gameObject));
 		}
-       /* else
+        else
         {
             GameplayManager.instance.powerUpTransform.Add((gameObject.transform));
-        }*/
+        }
 	}
 
 
@@ -52,6 +52,7 @@ public class ItemBehavior : MonoBehaviour {
     {
 		GameplayManager.instance.UpdateScore(numPoints);
         AudioManager.instance.PlaySFX(_pelletSFX);
+        GameplayManager.instance.pellets.Remove(gameObject);
     }
 
     private void PowerUp()
