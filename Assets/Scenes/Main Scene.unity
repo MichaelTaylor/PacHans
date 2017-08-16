@@ -416,16 +416,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114180846467790286, guid: 8098b984cf31cf14ea777f9e73c2c092,
+    - target: {fileID: 114322229300285536, guid: 8098b984cf31cf14ea777f9e73c2c092,
         type: 2}
-      propertyPath: _deathSFX
+      propertyPath: _map
       value: 
-      objectReference: {fileID: 8300000, guid: 8a753987418f5d64aaf41051e0b23ae4, type: 3}
-    - target: {fileID: 114180846467790286, guid: 8098b984cf31cf14ea777f9e73c2c092,
-        type: 2}
-      propertyPath: _enemyStates
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1900932021}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8098b984cf31cf14ea777f9e73c2c092, type: 2}
   m_IsPrefabParent: 0
@@ -10196,16 +10191,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 114423567755509952, guid: 74437ed393531754aa83f5e5909c5761,
+    - target: {fileID: 114865066804329834, guid: 74437ed393531754aa83f5e5909c5761,
         type: 2}
-      propertyPath: _deathSFX
+      propertyPath: _map
       value: 
-      objectReference: {fileID: 8300000, guid: 8a753987418f5d64aaf41051e0b23ae4, type: 3}
-    - target: {fileID: 114423567755509952, guid: 74437ed393531754aa83f5e5909c5761,
-        type: 2}
-      propertyPath: _enemyStates
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1900932021}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74437ed393531754aa83f5e5909c5761, type: 2}
   m_IsPrefabParent: 0
@@ -13287,7 +13277,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   autoRegenerateInterval: 60
-  radiusOffset: 0.5
+  radiusOffset: 0.6
 --- !u!1001 &1903724145
 Prefab:
   m_ObjectHideFlags: 0
@@ -14952,16 +14942,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 114836257134750204, guid: a373e82818fbf4c4090699133f7a1cb7,
+    - target: {fileID: 114170171146226826, guid: a373e82818fbf4c4090699133f7a1cb7,
         type: 2}
-      propertyPath: _deathSFX
+      propertyPath: _map
       value: 
-      objectReference: {fileID: 8300000, guid: 8a753987418f5d64aaf41051e0b23ae4, type: 3}
-    - target: {fileID: 114836257134750204, guid: a373e82818fbf4c4090699133f7a1cb7,
-        type: 2}
-      propertyPath: _enemyStates
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1900932021}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a373e82818fbf4c4090699133f7a1cb7, type: 2}
   m_IsPrefabParent: 0

@@ -6,9 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
+   // public bool _areLivesSetUp { get; set; }
+    public float _startingLives;
+    private float _lives;
     private float score;
+    public float _gainLifeThreshold;
+    public Text livesText;
     public Text scoreText;
     public AudioClip _musicIntro;
+    public AudioClip _gainLife;
     public AudioClip _clearGame;
     public AudioClip _gameOverSFX;
     public bool _isGameOver;
@@ -40,7 +46,7 @@ public class GameplayManager : MonoBehaviour
     private void Start()
     {
         SingletonFunction();
-        Debug.Log("Start");
+        //Debug.Log("Start");
     }
 
     private void SingletonFunction()
@@ -74,12 +80,15 @@ public class GameplayManager : MonoBehaviour
         
     }
 
-    public void Intro()
+    public void Intro(bool _areLivesSetUp)
     {
         Time.timeScale = 0.0000001f;
         AudioManager.instance.PlaySFX(_musicIntro);
         scoreText.text = "Score: " + score.ToString();
         StartCoroutine(TimeResume(0.0000001f * 4.5f));
+
+        if (_areLivesSetUp) return;
+        SetUpLives();
     }
 
     private IEnumerator TimeResume(float seconds)
@@ -100,6 +109,25 @@ public class GameplayManager : MonoBehaviour
     {
         score += addScore;
         scoreText.text = "Score: " + score.ToString();
+
+        if (score % _gainLifeThreshold == 0)
+        {
+            UpdateLives(1);
+            AudioManager.instance.PlaySFX(_gainLife);
+        }
+    }
+
+    public void SetUpLives()
+    {
+        _lives = _startingLives;
+        livesText.text = "Lives: " + _lives.ToString();
+    }
+
+    public void UpdateLives(float _addToLives)
+    {
+        Debug.Log("Lives");
+        _lives += _addToLives;
+        livesText.text = "Lives: " + _lives.ToString();
     }
 
     private void Update()
@@ -145,6 +173,7 @@ public class GameplayManager : MonoBehaviour
 
     public void CheckMusicLevels(float percentage)
     {
+        if (_isGameOver) return;
         if (percentage > 0.8f)
         {
             AudioManager.instance.Lv1Music();
@@ -168,7 +197,7 @@ public class GameplayManager : MonoBehaviour
         else
         {
             AudioManager.instance.MuteAllMusic();
-        }
+        }    
     }
 
     public void PowerUp()
@@ -210,14 +239,23 @@ public class GameplayManager : MonoBehaviour
     public void StartGameOver()
     {
         StartCoroutine(GameOver(3f));
+        _isGameOver = true;
         AudioManager.instance.PlaySFX(_gameOverSFX);
     }
 
     private IEnumerator GameOver(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        ResetValues(false);
-        _userInterfaceController.GameplayToGameOver();
+
+        if (_lives > 0)
+        {
+            ResetValues(true);
+        }
+        else
+        {
+            ResetValues(false);
+            _userInterfaceController.GameplayToGameOver();
+        }
     }
 
     public void LoadNextScene(string _nextScene)
@@ -225,15 +263,16 @@ public class GameplayManager : MonoBehaviour
         SceneManager.LoadScene(_nextScene);
     }
 
-    private void ResetValues(bool _didWin)
+    private void ResetValues(bool _gameNotDone)
     {
         enemies.Clear();
         pellets.Clear();
         powerUpTransform.Clear();
         _listOfSmoke.Clear();
 
-        if (!_didWin) return;
-        Intro();
+        if (!_gameNotDone) return;
+        Intro(true);
+        _isGameOver = false;
         GameplayManager.instance.LoadNextScene("Main Scene");
     }
 }

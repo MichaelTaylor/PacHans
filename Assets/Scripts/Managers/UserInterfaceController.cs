@@ -14,7 +14,8 @@ public class UserInterfaceController : MonoBehaviour {
         _startScreen.SetActive(false);
         _gameplayScreen.SetActive(true);
         _gameOverScreen.SetActive(false);
-        GameplayManager.instance.Intro();
+        GameplayManager.instance.Intro(false);
+        GameplayManager.instance.SetUpLives();
         GameplayManager.instance.LoadNextScene("Main Scene");
     }
 
@@ -23,6 +24,7 @@ public class UserInterfaceController : MonoBehaviour {
         _startScreen.SetActive(false);
         _gameplayScreen.SetActive(false);
         _gameOverScreen.SetActive(true);
+       // GameplayManager.instance._sessionStarted = false;
         GameplayManager.instance.LoadNextScene("Game Over Scene");
     }
 
@@ -31,7 +33,8 @@ public class UserInterfaceController : MonoBehaviour {
         _startScreen.SetActive(false);
         _gameplayScreen.SetActive(true);
         _gameOverScreen.SetActive(false);
-        GameplayManager.instance.Intro();
+        GameplayManager.instance.Intro(false);
+        GameplayManager.instance.SetUpLives();
         GameplayManager.instance.LoadNextScene("Main Scene");
     }
 

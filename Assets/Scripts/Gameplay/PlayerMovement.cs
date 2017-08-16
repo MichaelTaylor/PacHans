@@ -109,8 +109,10 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             GameplayManager.instance.ShowSmoke(transform.position);
+            GameplayManager.instance.UpdateLives(-1);
             gameObject.SetActive(false);
-            _audioSource.enabled = false;
+            AudioManager.instance.MuteAllMusic();
+            _audioSource.mute = true;
         }     
     }
 

@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1617738043622860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.79, y: -2, z: 0}
+  m_LocalPosition: {x: -2.54, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,15 +118,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d35be2b9ee6d6b4e8c68adee884b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalSpeed: 5
-  _scaredSpeed: 2
+  _becomeActiveDuration: 6
+  _score: 200
+  _normalSpeed: 8
+  _scaredSpeed: 4
   _deadSpeed: 10
   _distanceThreshold: 1
   _BehaviourTime: 0
   _maxBehaviourTime: 3
   _runMultiplier: 1
-  _deathSFX: {fileID: 0}
-  _enemyStates: 2
+  _deathSFX: {fileID: 8300000, guid: 8a753987418f5d64aaf41051e0b23ae4, type: 3}
+  _enemyStates: 0
 --- !u!114 &114322229300285536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,9 +146,9 @@ MonoBehaviour:
   stoppingDistance: 0
   slowingDistance: 1
   accelerationRate: 5
-  decelerationRate: 5
+  decelerationRate: 0
   lookAheadDistance: 3
-  avoidRadius: 0.01
+  avoidRadius: 0.05
   centerOffset: {x: 0, y: 0}
   rotateTransform: 0
   rotateSpeed: 350

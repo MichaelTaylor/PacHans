@@ -9,10 +9,15 @@ public class EnemyBehavior : MonoBehaviour {
     private int _oldDestinationIndex;
     private bool isDead;
     private Transform Destination;
+    public float _becomeActiveDuration;
     public float _score;
     public float _normalSpeed;
+    private float _normalSpeedDefault;
     public float _scaredSpeed;
+    private float _scaredSpeedDefault;
     public float _deadSpeed;
+    private float _deadSpeedDefault;
+    public float _speedMultiplyer;
     private float _distance;
     public float _distanceThreshold;
     public float _BehaviourTime;
@@ -40,6 +45,9 @@ public class EnemyBehavior : MonoBehaviour {
         Invoke("AddToList", 0.1f);
         GetProperties();
         _polyNavAgent.maxSpeed = _normalSpeed;
+
+        _normalSpeedDefault = _normalSpeed;
+        _scaredSpeedDefault = _scaredSpeed;
     }
 
     private void GetProperties()
@@ -53,7 +61,7 @@ public class EnemyBehavior : MonoBehaviour {
 		if (GameplayManager.instance != null)
 		{
 			GameplayManager.instance.enemies.Add(this);
-            StartCoroutine(BeginBehavior(3f));
+            StartCoroutine(BeginBehavior(_becomeActiveDuration));
         }  
     }
 
@@ -149,7 +157,7 @@ public class EnemyBehavior : MonoBehaviour {
     private void Enemy_Scared()
     {
         //TODO: RUN AWAY FROM PLAYER
-       // _polyNavAgent.maxSpeed = _scaredSpeed;
+        _polyNavAgent.maxSpeed = _scaredSpeed;
         _anim.SetBool("IsScared", true);
 
         if (Destination == null)
@@ -212,6 +220,20 @@ public class EnemyBehavior : MonoBehaviour {
             SetState(EnemyStates.Chasing);
             
         }
+    }
+
+    public void UpdateSpeed()
+    {
+        _normalSpeed *= _speedMultiplyer;
+        _scaredSpeed *= _speedMultiplyer;
+        _deadSpeed *= _speedMultiplyer;
+    }
+
+    public void ResetSpeed()
+    {
+        _normalSpeed = _normalSpeedDefault;
+        _scaredSpeed = _scaredSpeedDefault;
+        _deadSpeed = _deadSpeedDefault;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
