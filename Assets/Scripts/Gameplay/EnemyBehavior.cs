@@ -9,6 +9,7 @@ public class EnemyBehavior : MonoBehaviour {
     private int _oldDestinationIndex;
     private bool isDead;
     private Transform Destination;
+    public float _score;
     public float _normalSpeed;
     public float _scaredSpeed;
     public float _deadSpeed;
@@ -220,6 +221,7 @@ public class EnemyBehavior : MonoBehaviour {
                 _anim.SetBool("IsDead", true);
                 AudioManager.instance.PlaySFX(_deathSFX);
                 GameplayManager.instance.ShowSmoke(transform.position);
+                GameplayManager.instance.UpdateScore(_score);
             }
             else if (_enemyStates != EnemyStates.Dead && _enemyStates != EnemyStates.Scared)
             {

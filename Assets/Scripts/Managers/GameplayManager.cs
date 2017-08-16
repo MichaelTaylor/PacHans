@@ -19,6 +19,11 @@ public class GameplayManager : MonoBehaviour
     public List<GameObject> pellets = new List<GameObject>();
     public List<Transform> powerUpTransform = new List<Transform>();
 
+    public float _scaredTimer;
+
+    public float _maxPellets;
+    public float _pelletPercentage;
+
     public Transform _enemyReturnPoint;
     
     public bool poweredUp;
@@ -82,6 +87,13 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         PoolSmoke();
         Time.timeScale = 1f;
+        Invoke("GetMaxPellets",0.1f);
+    }
+
+    private void GetMaxPellets()
+    {
+        _maxPellets = pellets.Count;
+        player.GetComponent<PlayerMovement>().PlayNormalSFX();
     }
 
     public void UpdateScore(float addScore)
@@ -92,7 +104,14 @@ public class GameplayManager : MonoBehaviour
 
     private void Update()
     {
+        if (_maxPellets <= 0) return;
+
+        _pelletPercentage = (pellets.Count / _maxPellets);
+        CheckMusicLevels(_pelletPercentage);
+        CheckScaredTimer();
+
         if (player == null) return;
+
         if (score > 0)
         {
             if (pellets.Count <= 0 && !_isGameOver)
@@ -106,20 +125,69 @@ public class GameplayManager : MonoBehaviour
         } 
     }
 
+    private void AddToScaredTimer(float _additionalTime)
+    {
+        _scaredTimer += _additionalTime;
+    }
+
+    private void CheckScaredTimer()
+    {
+        if (!poweredUp) return;
+        if (_scaredTimer > 0)
+        {
+            _scaredTimer -= Time.deltaTime;
+        }
+        else
+        {
+            BackToNormal();
+        }
+    }
+
+    public void CheckMusicLevels(float percentage)
+    {
+        if (percentage > 0.8f)
+        {
+            AudioManager.instance.Lv1Music();
+        }
+        else if (percentage < 0.8f && percentage > 0.6f)
+        {
+            AudioManager.instance.Lv2Music();
+        }
+        else if (percentage < 0.6f && percentage > 0.4f)
+        {
+            AudioManager.instance.Lv3Music();
+        }
+        else if (percentage < 0.4f && percentage > 0.2f)
+        {
+            AudioManager.instance.Lv4Music();
+        }
+        else if (percentage < 0.2f && percentage > 0.01f)
+        {
+            AudioManager.instance.Lv5Music();
+        }
+        else
+        {
+            AudioManager.instance.MuteAllMusic();
+        }
+    }
+
     public void PowerUp()
     {
         poweredUp = true;
-        StartCoroutine(BackToNormal(powerUpDuration));
+        //StartCoroutine(BackToNormal(powerUpDuration));
+        AddToScaredTimer(powerUpDuration);
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].SetState(EnemyBehavior.EnemyStates.Scared);
         }
+
+        player.GetComponent<PlayerMovement>().PlayPowerSFX();
     }
 
-    private IEnumerator BackToNormal(float seconds)
+    private void BackToNormal()
     {
-        yield return new WaitForSeconds(seconds);
-
+        poweredUp = false;
+        player.GetComponent<PlayerMovement>().PlayNormalSFX();
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].ReturnToLife();
@@ -128,7 +196,8 @@ public class GameplayManager : MonoBehaviour
 
     public void StartWinGame()
     {
-        StartCoroutine(WinGame(3f));
+        Time.timeScale = 0.0000001f;
+        StartCoroutine(WinGame(3.5f * 0.0000001f));
         AudioManager.instance.PlaySFX(_clearGame);
     }
 
@@ -164,8 +233,7 @@ public class GameplayManager : MonoBehaviour
         _listOfSmoke.Clear();
 
         if (!_didWin) return;
-        Time.timeScale = 0.0000001f;
-        StartCoroutine(TimeResume(0.0000001f * 4.5f));
+        Intro();
         GameplayManager.instance.LoadNextScene("Main Scene");
     }
 }

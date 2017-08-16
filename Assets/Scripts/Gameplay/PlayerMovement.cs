@@ -31,6 +31,10 @@ public class PlayerMovement : MonoBehaviour {
     public List<RaycastBehavior> _DownRaycasts = new List<RaycastBehavior>();
     public List<RaycastBehavior> _UpRaycasts = new List<RaycastBehavior>();
 
+    public AudioSource _audioSource;
+    public AudioClip _moving;
+    public AudioClip _poweredMoving;
+
     private RaycastHit2D Righthit;
     private RaycastHit2D Lefthit;
     private RaycastHit2D Downhit;
@@ -106,6 +110,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             GameplayManager.instance.ShowSmoke(transform.position);
             gameObject.SetActive(false);
+            _audioSource.enabled = false;
         }     
     }
 
@@ -188,5 +193,17 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         RB2D.velocity = movement * speed;
+    }
+
+    public void PlayNormalSFX()
+    {
+        _audioSource.clip = _moving;
+        _audioSource.Play();
+    }
+
+    public void PlayPowerSFX()
+    {
+        _audioSource.clip = _poweredMoving;
+        _audioSource.Play();
     }
 }

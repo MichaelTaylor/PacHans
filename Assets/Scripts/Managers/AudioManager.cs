@@ -33,6 +33,60 @@ public class AudioManager : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+    
+    public void MuteAllMusic()
+    {
+        _source1.mute = true;
+        _source2.mute = true;
+        _source3.mute = true;
+        _source4.mute = true;
+        _source5.mute = true;
+    }
+
+    public void Lv1Music()
+    {
+        _source1.mute = false;
+        _source2.mute = true;
+        _source3.mute = true;
+        _source4.mute = true;
+        _source5.mute = true;
+    }
+
+    public void Lv2Music()
+    {
+        _source1.mute = true;
+        _source2.mute = false;
+        _source3.mute = true;
+        _source4.mute = true;
+        _source5.mute = true;
+    }
+
+    public void Lv3Music()
+    {
+        _source1.mute = true;
+        _source2.mute = true;
+        _source3.mute = false;
+        _source4.mute = true;
+        _source5.mute = true;
+    }
+
+    public void Lv4Music()
+    {
+        _source1.mute = true;
+        _source2.mute = true;
+        _source3.mute = true;
+        _source4.mute = false;
+        _source5.mute = true;
+    }
+
+    public void Lv5Music()
+    {
+        _source1.mute = true;
+        _source2.mute = true;
+        _source3.mute = true;
+        _source4.mute = true;
+        _source5.mute = false;
+    }
 
     public void PlaySFX(AudioClip _newClip)
     {
