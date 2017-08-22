@@ -11,21 +11,22 @@ public class UserInterfaceController : MonoBehaviour {
 
     public void StartScreenToGameplay()
     {
-        _startScreen.SetActive(false);
-        _gameplayScreen.SetActive(true);
-        _gameOverScreen.SetActive(false);
         GameplayManager.instance.Intro(false);
         GameplayManager.instance.SetUpLives();
         GameplayManager.instance.LoadNextScene("Main Scene");
+        _startScreen.SetActive(false);
+        _gameplayScreen.SetActive(true);
+        _gameOverScreen.SetActive(false);
+        
     }
 
 	public void GameplayToGameOver()
     {
+        GameplayManager.instance.LoadNextScene("Game Over Scene");
         _startScreen.SetActive(false);
         _gameplayScreen.SetActive(false);
         _gameOverScreen.SetActive(true);
        // GameplayManager.instance._sessionStarted = false;
-        GameplayManager.instance.LoadNextScene("Game Over Scene");
     }
 
     public void GameOverToGameplay()

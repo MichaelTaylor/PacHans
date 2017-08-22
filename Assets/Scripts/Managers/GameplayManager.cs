@@ -40,6 +40,7 @@ public class GameplayManager : MonoBehaviour
     private List<GameObject> _listOfSmoke = new List<GameObject>();
 
     public UserInterfaceController _userInterfaceController;
+    public HighScoreManager _highScoreManager;
     public static GameplayManager instance;
 
     // Use this for initialization
@@ -103,6 +104,7 @@ public class GameplayManager : MonoBehaviour
     {
         _maxPellets = pellets.Count;
         player.GetComponent<PlayerMovement>().PlayNormalSFX();
+        player.GetComponent<PlayerMovement>()._audioSource.mute = false;
     }
 
     public void UpdateScore(float addScore)
@@ -148,6 +150,8 @@ public class GameplayManager : MonoBehaviour
                 {
                     _isGameOver = true;
                     StartWinGame();
+                    AudioManager.instance.MuteAllMusic();
+                    player.GetComponent<PlayerMovement>()._audioSource.mute = true;
                 }         
             }
         } 
