@@ -258,13 +258,21 @@ public class GameplayManager : MonoBehaviour
         else
         {
             ResetValues(false);
-            _userInterfaceController.GameplayToGameOver();
+            _userInterfaceController.GameplayToGameOver(score);
         }
     }
 
     public void LoadNextScene(string _nextScene)
     {
         SceneManager.LoadScene(_nextScene);
+    }
+
+    public void ResetScore()
+    {
+        //Intro(true);
+        _isGameOver = false;
+        score = 0;
+        scoreText.text = "Score: " + score.ToString();
     }
 
     private void ResetValues(bool _gameNotDone)

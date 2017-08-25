@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HighScoreController : MonoBehaviour {
 
     public int Rank;
+    public float _numScore;
     public string _score;
     public string _fullname;
     private string[] Alphabet =
@@ -29,19 +30,52 @@ public class HighScoreController : MonoBehaviour {
 
     private void Start()
     {
-        _score = PlayerPrefs.GetFloat("Score" + Rank.ToString()).ToString();
-        _fullname = PlayerPrefs.GetString("Name" + Rank.ToString());
-
+        //_score = PlayerPrefs.GetFloat("Score" + Rank.ToString()).ToString();
+        //_fullname = PlayerPrefs.GetString("Name" + Rank.ToString());
+        GetScore();
+        CheckScore();
         if (!CanInput)
         {
             CheckScoreText();
-            CheckFullName();
+            CheckFullName(_fullname);
         }
         else
         {
-            //ResetName();
+            ResetName();
         }
         //Debug.Log(PlayerPrefs.GetString("Name" + Rank.ToString())[0]);
+    }
+
+    private void GetScore()
+    {
+        switch(Rank)
+        {
+            case 1:
+                {
+                    _numScore = GameplayManager.instance._highScoreManager.TopScore1;
+                    break;
+                }
+            case 2:
+                {
+                    _numScore = GameplayManager.instance._highScoreManager.TopScore2;
+                    break;
+                }
+            case 3:
+                {
+                    _numScore = GameplayManager.instance._highScoreManager.TopScore3;
+                    break;
+                }
+            case 4:
+                {
+                    _numScore = GameplayManager.instance._highScoreManager.TopScore4;
+                    break;
+                }
+            case 5:
+                {
+                    _numScore = GameplayManager.instance._highScoreManager.TopScore5;
+                    break;
+                }
+        }
     }
 
     private void Update()
@@ -91,16 +125,22 @@ public class HighScoreController : MonoBehaviour {
         _currentLetterLast = 0;
     }
 
-    private void CheckScoreText()
+    private void CheckScore()
     {
-        _scoreText.text = _score;
+        //_numScore = Score;
+        CheckScoreText();
     }
 
-    private void CheckFullName()
+    private void CheckScoreText()
     {
-        _initials[0].text = PlayerPrefs.GetString("Name" + Rank.ToString())[0].ToString();
-        _initials[1].text = PlayerPrefs.GetString("Name" + Rank.ToString())[1].ToString();
-        _initials[2].text = PlayerPrefs.GetString("Name" + Rank.ToString())[2].ToString();
+        _scoreText.text = _numScore.ToString();
+    }
+
+    private void CheckFullName(string name)
+    {
+        _initials[0].text = name[0].ToString();
+        _initials[1].text = name[1].ToString();
+        _initials[2].text = name[2].ToString();
     }
 
     private void SwitchInitial()
@@ -117,7 +157,10 @@ public class HighScoreController : MonoBehaviour {
         if (_initialIndex > 2)
         {
             _initialIndex = 2;
+            _fullname = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+            GameplayManager.instance._highScoreManager.UpdateNames();
             SaveRank();
+            GameplayManager.instance._userInterfaceController.GameOverToStartScreen();
         }
         else if (_initialIndex < 0)
         {
@@ -206,7 +249,9 @@ public class HighScoreController : MonoBehaviour {
 
     private void SaveRank()
     {
-        PlayerPrefs.SetFloat("Score" + Rank.ToString(), GameplayManager.instance._highScoreManager.TestScore);
-        PlayerPrefs.SetString("Name" + Rank.ToString(), _initials[0].text + _initials[1].text + _initials[2].text);
+        //PlayerPrefs.SetFloat("Score" + Rank.ToString(), GameplayManager.instance._highScoreManager.TestScore);
+        //PlayerPrefs.SetString("Name" + Rank.ToString(), _initials[0].text + _initials[1].text + _initials[2].text);
+        GameplayManager.instance._highScoreManager.Save();
+        Debug.Log("Save");
     }
 }

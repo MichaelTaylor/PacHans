@@ -268,14 +268,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224363484329017808}
-  - component: {fileID: 114989385418730028}
   m_Layer: 5
   m_Name: High Score Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1280686151601500
 GameObject:
   m_ObjectHideFlags: 1
@@ -673,7 +672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1679019481065626
 GameObject:
   m_ObjectHideFlags: 1
@@ -1016,6 +1015,7 @@ GameObject:
   - component: {fileID: 114561120164030728}
   - component: {fileID: 114513570458094952}
   - component: {fileID: 114085740847993092}
+  - component: {fileID: 114598668561778558}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1934,6 +1934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startScreen: {fileID: 1674302334982288}
   _gameplayScreen: {fileID: 1934349530775690}
+  _highScoreScreen: {fileID: 1275474671632730}
   _gameOverScreen: {fileID: 1834479141398760}
 --- !u!114 &114093292933540296
 MonoBehaviour:
@@ -2032,6 +2033,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rank: 5
+  _numScore: 200
+  _score: 
+  _fullname: BAD
   _currentLetterFirst: 0
   _currentLetterMiddle: 0
   _currentLetterLast: 0
@@ -2185,6 +2189,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rank: 1
+  _numScore: 510
+  _score: 
+  _fullname: MKT
   _currentLetterFirst: 0
   _currentLetterMiddle: 0
   _currentLetterLast: 0
@@ -2336,7 +2343,7 @@ MonoBehaviour:
     type: 2}
   _smokeAmount: 20
   _userInterfaceController: {fileID: 114085740847993092}
-  _highScoreManager: {fileID: 114989385418730028}
+  _highScoreManager: {fileID: 114598668561778558}
 --- !u!114 &114388072204980308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2571,6 +2578,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rank: 4
+  _numScore: 250
+  _score: 
+  _fullname: JOR
   _currentLetterFirst: 0
   _currentLetterMiddle: 0
   _currentLetterLast: 0
@@ -2591,7 +2601,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2601,6 +2611,33 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114598668561778558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999619613667942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ccf73df4ff85a47aaf423988a503f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TopScore1: 450
+  TopScore2: 400
+  TopScore3: 360
+  TopScore4: 200
+  TopScore5: 150
+  TopScoreName1: 
+  TopScoreName2: 
+  TopScoreName3: 
+  TopScoreName4: 
+  TopScoreName5: 
+  _controller1: {fileID: 114313538854441838}
+  _controller2: {fileID: 114855013531777220}
+  _controller3: {fileID: 114833989031190194}
+  _controller4: {fileID: 114538191313902326}
+  _controller5: {fileID: 114114467790426566}
+  TestScore: 100
 --- !u!114 &114624871779006864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2924,6 +2961,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rank: 3
+  _numScore: 300
+  _score: 
+  _fullname: TED
   _currentLetterFirst: 0
   _currentLetterMiddle: 0
   _currentLetterLast: 0
@@ -3044,6 +3084,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rank: 2
+  _numScore: 400
+  _score: 
+  _fullname: STE
   _currentLetterFirst: 0
   _currentLetterMiddle: 0
   _currentLetterLast: 0
@@ -3278,28 +3321,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: A
---- !u!114 &114989385418730028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1275474671632730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ccf73df4ff85a47aaf423988a503f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TopScore1: 450
-  TopScore2: 400
-  TopScore3: 360
-  TopScore4: 200
-  TopScore5: 150
-  _controller1: {fileID: 114313538854441838}
-  _controller2: {fileID: 114855013531777220}
-  _controller3: {fileID: 114833989031190194}
-  _controller4: {fileID: 114538191313902326}
-  _controller5: {fileID: 114114467790426566}
-  TestScore: 10000
 --- !u!222 &222002298785079324
 CanvasRenderer:
   m_ObjectHideFlags: 1
