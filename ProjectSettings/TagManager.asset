@@ -49,3 +49,6 @@ TagManager:
   - name: MG
     uniqueID: 2236865019
     locked: 0
+  - name: FG
+    uniqueID: 703861009
+    locked: 0

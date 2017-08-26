@@ -9,9 +9,11 @@ public class GameplayManager : MonoBehaviour
    // public bool _areLivesSetUp { get; set; }
     public float _startingLives;
     private float _lives;
+    private float _levelNum;
     private float score;
     public float _gainLifeThreshold;
     public Text livesText;
+    public Text levelText;
     public Text scoreText;
     public AudioClip _musicIntro;
     public AudioClip _gainLife;
@@ -20,6 +22,8 @@ public class GameplayManager : MonoBehaviour
     public bool _isGameOver;
 
     public GameObject player;
+
+    public TransitionBehavior _transitionBehavior;
 
     public List<EnemyBehavior> enemies = new List<EnemyBehavior>();
     public List<GameObject> pellets = new List<GameObject>();
@@ -117,6 +121,12 @@ public class GameplayManager : MonoBehaviour
             UpdateLives(1);
             AudioManager.instance.PlaySFX(_gainLife);
         }
+    }
+
+    public void UpdateLevelNum(float _addToLevel)
+    {
+        _levelNum += _addToLevel;
+        levelText.text = "Level: " + _levelNum.ToString();
     }
 
     public void SetUpLives()
@@ -230,13 +240,16 @@ public class GameplayManager : MonoBehaviour
     public void StartWinGame()
     {
         Time.timeScale = 0.0000001f;
-        StartCoroutine(WinGame(3.5f * 0.0000001f));
+        StartCoroutine(WinGame(4f * 0.0000001f));
         AudioManager.instance.PlaySFX(_clearGame);
+        //_transitionBehavior.CanMove = true;
+        //_transitionBehavior._transitionSpeed = 50000000;
     }
 
     private IEnumerator WinGame(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        UpdateLevelNum(1);
         ResetValues(true);
     }
 
@@ -245,6 +258,8 @@ public class GameplayManager : MonoBehaviour
         StartCoroutine(GameOver(3f));
         _isGameOver = true;
         AudioManager.instance.PlaySFX(_gameOverSFX);
+        _transitionBehavior.CanMove = true;
+        _transitionBehavior._speedMultiplyer = 1;
     }
 
     private IEnumerator GameOver(float seconds)
@@ -258,6 +273,8 @@ public class GameplayManager : MonoBehaviour
         else
         {
             ResetValues(false);
+            _levelNum = 0;
+            UpdateLevelNum(0);
             _userInterfaceController.GameplayToGameOver(score);
         }
     }

@@ -82,6 +82,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     public void SetState(EnemyStates newState)
     {
+        if (_enemyStates == EnemyStates.Dead) return;
         _enemyStates = newState;
         Destination = null;
     }
