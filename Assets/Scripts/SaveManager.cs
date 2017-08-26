@@ -21,7 +21,7 @@ public static class SaveManager
 
     public static float[] LoadScores()
     {
-        //if (!File.Exists(Application.persistentDataPath + "/HighScoreData.sav")) return null;
+        if (!File.Exists(Application.persistentDataPath + "/HighScoreData.sav")) return null;
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream stream = new FileStream(Application.persistentDataPath + "/HighScoreData.sav", FileMode.Open);
@@ -34,7 +34,7 @@ public static class SaveManager
 
     public static string[] LoadNames()
     {
-        //if (!File.Exists(Application.persistentDataPath + "/HighScoreData.sav")) return null;
+        if (!File.Exists(Application.persistentDataPath + "/HighScoreData.sav")) return null;
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream stream = new FileStream(Application.persistentDataPath + "/HighScoreData.sav", FileMode.Open);

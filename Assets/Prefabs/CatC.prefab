@@ -145,11 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d35be2b9ee6d6b4e8c68adee884b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _becomeActiveDuration: 8
+  _becomeActiveDuration: 7
   _score: 200
   _normalSpeed: 8
   _scaredSpeed: 4
   _deadSpeed: 10
+  _speedMultiplyer: 0
   _distanceThreshold: 1
   _BehaviourTime: 0
   _maxBehaviourTime: 3

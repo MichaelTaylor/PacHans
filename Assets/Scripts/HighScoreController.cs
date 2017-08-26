@@ -28,6 +28,8 @@ public class HighScoreController : MonoBehaviour {
 
     public bool CanInput { get; set; }
 
+    public AudioClip _confirmSFX;
+
     private void Start()
     {
         //_score = PlayerPrefs.GetFloat("Score" + Rank.ToString()).ToString();
@@ -99,16 +101,25 @@ public class HighScoreController : MonoBehaviour {
             case 0:
                 {
                     _initials[0].text = Alphabet[_currentLetterFirst];
+                    _initials[0].GetComponent<Flicker>().enabled = true;
+                    _initials[1].GetComponent<Flicker>().enabled = false;
+                    _initials[2].GetComponent<Flicker>().enabled = false;
                     break;
                 }
             case 1:
                 {
                     _initials[1].text = Alphabet[_currentLetterMiddle];
+                    _initials[0].GetComponent<Flicker>().enabled = false;
+                    _initials[1].GetComponent<Flicker>().enabled = true;
+                    _initials[2].GetComponent<Flicker>().enabled = false;
                     break;
                 }
             case 2:
                 {
                     _initials[2].text = Alphabet[_currentLetterLast];
+                    _initials[0].GetComponent<Flicker>().enabled = false;
+                    _initials[1].GetComponent<Flicker>().enabled = false;
+                    _initials[2].GetComponent<Flicker>().enabled = true;
                     break;
                 }
         }
@@ -147,6 +158,7 @@ public class HighScoreController : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
+            AudioManager.instance.PlaySFX(_confirmSFX);
             _initialIndex++;
         }
         else if (Input.GetMouseButtonDown(1))
@@ -158,6 +170,9 @@ public class HighScoreController : MonoBehaviour {
         {
             _initialIndex = 2;
             _fullname = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+            _initials[0].GetComponent<Flicker>().enabled = false;
+            _initials[1].GetComponent<Flicker>().enabled = false;
+            _initials[2].GetComponent<Flicker>().enabled = false;
             GameplayManager.instance._highScoreManager.UpdateNames();
             SaveRank();
             GameplayManager.instance._userInterfaceController.GameOverToStartScreen();

@@ -82,7 +82,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     public void SetState(EnemyStates newState)
     {
-        if (_enemyStates == EnemyStates.Dead) return;
+        //if (_enemyStates == EnemyStates.Dead) return;
         _enemyStates = newState;
         Destination = null;
     }
@@ -196,6 +196,8 @@ public class EnemyBehavior : MonoBehaviour {
         {
             SetState(EnemyStates.Chasing);
             isDead = false;
+            Debug.Log("Unscared");
+            _anim.SetBool("IsScared", false);
             _anim.SetBool("IsDead", false);
         }
     }
