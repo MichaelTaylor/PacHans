@@ -914,7 +914,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 19.888887
+  orthographic size: 16.166666
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5300,7 +5300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 0
-  extraOffset: -0.27
+  extraOffset: 0.06
   invertPolygon: 0
 --- !u!1 &672377710
 GameObject:
@@ -6041,7 +6041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 0
-  extraOffset: -0.48
+  extraOffset: 0.06
   invertPolygon: 0
 --- !u!1001 &762238321
 Prefab:
@@ -12930,7 +12930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 0
-  extraOffset: -0.48
+  extraOffset: 0.54
   invertPolygon: 0
 --- !u!1001 &1762822740
 Prefab:
@@ -14123,7 +14123,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   autoRegenerateInterval: 1
-  radiusOffset: 0.58
+  radiusOffset: 0.6
 --- !u!1001 &1903724145
 Prefab:
   m_ObjectHideFlags: 0
@@ -14255,7 +14255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 0
-  extraOffset: -0.48
+  extraOffset: 0.06
   invertPolygon: 0
 --- !u!1 &1913321866
 GameObject:
@@ -14338,7 +14338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 0
-  extraOffset: -0.48
+  extraOffset: 0.06
   invertPolygon: 0
 --- !u!1001 &1914503051
 Prefab:

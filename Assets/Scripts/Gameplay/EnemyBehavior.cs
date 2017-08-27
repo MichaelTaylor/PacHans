@@ -213,13 +213,13 @@ public class EnemyBehavior : MonoBehaviour {
     {
         _polyNavAgent.maxSpeed = _deadSpeed;
         isDead = true;
-        GetComponent<BoxCollider2D>().isTrigger = true;
+        //GetComponent<BoxCollider2D>().isTrigger = true;
         SetNewDestination(GameplayManager.instance._enemyReturnPoint);
 
         if (_distance < _distanceThreshold)
         {
             SetState(EnemyStates.Chasing);
-            GetComponent<BoxCollider2D>().isTrigger = false;
+            //GetComponent<BoxCollider2D>().isTrigger = false;
             isDead = false;
             _anim.SetBool("IsScared", false);
             _anim.SetBool("IsDead", false);
@@ -231,7 +231,7 @@ public class EnemyBehavior : MonoBehaviour {
         int _newIndex = Random.Range(0, 4);
         _oldDestinationIndex = _newIndex;
 
-        return _newIndex;
+        return _oldDestinationIndex;
     }
 
     private void SetNewDestination(Transform _newDestination)
@@ -263,9 +263,9 @@ public class EnemyBehavior : MonoBehaviour {
         _deadSpeed = _deadSpeedDefault;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (col.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             if (_enemyStates == EnemyStates.Scared)
             {
@@ -278,7 +278,7 @@ public class EnemyBehavior : MonoBehaviour {
             else if (_enemyStates != EnemyStates.Dead && _enemyStates != EnemyStates.Scared)
             {
                 SetState(EnemyStates.Idle);
-                col.gameObject.GetComponent<PlayerMovement>().isDead = true;
+                other.gameObject.GetComponent<PlayerMovement>().isDead = true;
                 GameplayManager.instance.StartGameOver();
                 _polyNavAgent.maxSpeed = 0f;
             }
