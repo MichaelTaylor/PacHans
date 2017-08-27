@@ -98,47 +98,6 @@ public class HighScoreManager : MonoBehaviour {
         }
     }
 
-    public void EvaluateNewScore(float _newScore)
-    {
-        if (_newScore >= TopScore1)
-        {
-            TopScore5 = TopScore4;
-            TopScore4 = TopScore3;
-            TopScore3 = TopScore2;
-            TopScore2 = TopScore1;
-            TopScore1 = _newScore;
-            InitiateInput(1);
-        }
-        else if (_newScore < TopScore1 && _newScore >= TopScore2)
-        {
-            TopScore5 = TopScore4;
-            TopScore4 = TopScore3;
-            TopScore3 = TopScore2;
-            TopScore2 = _newScore;
-            InitiateInput(2);
-        }
-        else if (_newScore < TopScore2 && _newScore >= TopScore3)
-        {
-            TopScore5 = TopScore4;
-            TopScore4 = TopScore3;
-            TopScore3 = _newScore;
-            InitiateInput(3);
-        }
-        else if (_newScore < TopScore3 && _newScore >= TopScore4)
-        {
-            TopScore5 = TopScore4;
-            TopScore4 = _newScore;
-            InitiateInput(4);
-        }
-        else if (_newScore < TopScore4 && _newScore >= TopScore5)
-        {
-            TopScore5 = _newScore;
-            InitiateInput(5);
-        }
-
-        UpdateScoreBoard();
-    }
-
     public void UpdateScoreBoard()
     {
         _controller1._scoreText.text = TopScore1.ToString();
@@ -155,6 +114,73 @@ public class HighScoreManager : MonoBehaviour {
         TopScoreName3 = _controller3._fullname;
         TopScoreName4 = _controller4._fullname;
         TopScoreName5 = _controller5._fullname;
+
+        /* _controller1.CheckFullName(_controller1._fullname);
+         _controller2.CheckFullName(_controller2._fullname);
+         _controller3.CheckFullName(_controller3._fullname);
+         _controller4.CheckFullName(_controller4._fullname);
+         _controller5.CheckFullName(_controller5._fullname);*/
+    }
+
+    public void EvaluateNewScore(float _newScore)
+    {
+        if (_newScore >= TopScore1)
+        {
+            TopScore5 = TopScore4;
+            TopScoreName5 = TopScoreName4;
+
+            TopScore4 = TopScore3;
+            TopScoreName4 = TopScoreName3;
+
+            TopScore3 = TopScore2;
+            TopScoreName3 = TopScoreName2;
+
+            TopScore2 = TopScore1;
+            TopScoreName2 = TopScoreName1;
+
+            TopScore1 = _newScore;
+            InitiateInput(1);
+        }
+        else if (_newScore < TopScore1 && _newScore >= TopScore2)
+        {
+            TopScore5 = TopScore4;
+            TopScoreName5 = TopScoreName4;
+
+            TopScore4 = TopScore3;
+            TopScoreName4 = TopScoreName3;
+
+            TopScore3 = TopScore2;
+            TopScoreName3 = TopScoreName2;
+
+            TopScore2 = _newScore;
+            InitiateInput(2);
+        }
+        else if (_newScore < TopScore2 && _newScore >= TopScore3)
+        {
+            TopScore5 = TopScore4;
+            TopScoreName5 = TopScoreName4;
+
+            TopScore4 = TopScore3;
+            TopScoreName4 = TopScoreName3;
+
+            TopScore3 = _newScore;
+            InitiateInput(3);
+        }
+        else if (_newScore < TopScore3 && _newScore >= TopScore4)
+        {
+            TopScore5 = TopScore4;
+            TopScoreName5 = TopScoreName4;
+
+            TopScore4 = _newScore;
+            InitiateInput(4);
+        }
+        else if (_newScore < TopScore4 && _newScore >= TopScore5)
+        {
+            TopScore5 = _newScore;
+            InitiateInput(5);
+        }
+
+        UpdateScoreBoard();
     }
 
     private void InitiateInput(int _rankIndex)

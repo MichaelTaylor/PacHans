@@ -28,6 +28,7 @@ public class HighScoreController : MonoBehaviour {
 
     public bool CanInput { get; set; }
 
+    public AudioClip _scrollSFX;
     public AudioClip _confirmSFX;
 
     private void Start()
@@ -35,6 +36,7 @@ public class HighScoreController : MonoBehaviour {
         //_score = PlayerPrefs.GetFloat("Score" + Rank.ToString()).ToString();
         //_fullname = PlayerPrefs.GetString("Name" + Rank.ToString());
         GetScore();
+        GetName();
         CheckScore();
         if (!CanInput)
         {
@@ -43,6 +45,7 @@ public class HighScoreController : MonoBehaviour {
         }
         else
         {
+            _initialIndex = 0;
             ResetName();
         }
         //Debug.Log(PlayerPrefs.GetString("Name" + Rank.ToString())[0]);
@@ -80,6 +83,38 @@ public class HighScoreController : MonoBehaviour {
         }
     }
 
+    private void GetName()
+    {
+        switch (Rank)
+        {
+            case 1:
+                {
+                    _fullname = GameplayManager.instance._highScoreManager.TopScoreName1;
+                    break;
+                }
+            case 2:
+                {
+                    _fullname = GameplayManager.instance._highScoreManager.TopScoreName2;
+                    break;
+                }
+            case 3:
+                {
+                    _fullname = GameplayManager.instance._highScoreManager.TopScoreName3;
+                    break;
+                }
+            case 4:
+                {
+                    _fullname = GameplayManager.instance._highScoreManager.TopScoreName4;
+                    break;
+                }
+            case 5:
+                {
+                    _fullname = GameplayManager.instance._highScoreManager.TopScoreName5;
+                    break;
+                }
+        }
+    }
+
     private void Update()
     {
         if (!CanInput) return;
@@ -102,23 +137,29 @@ public class HighScoreController : MonoBehaviour {
                 {
                     _initials[0].text = Alphabet[_currentLetterFirst];
                     _initials[0].GetComponent<Flicker>().enabled = true;
-                    _initials[1].GetComponent<Flicker>().enabled = false;
-                    _initials[2].GetComponent<Flicker>().enabled = false;
+                    _initials[1].GetComponent<Flicker>().ReturnToNormal();
+                    //_initials[1].GetComponent<Flicker>().enabled = false;
+                    _initials[2].GetComponent<Flicker>().ReturnToNormal();
+                    //_initials[2].GetComponent<Flicker>().enabled = false;
                     break;
                 }
             case 1:
                 {
                     _initials[1].text = Alphabet[_currentLetterMiddle];
-                    _initials[0].GetComponent<Flicker>().enabled = false;
+                    _initials[0].GetComponent<Flicker>().ReturnToNormal();
+                    //_initials[0].GetComponent<Flicker>().enabled = false;
                     _initials[1].GetComponent<Flicker>().enabled = true;
-                    _initials[2].GetComponent<Flicker>().enabled = false;
+                    _initials[2].GetComponent<Flicker>().ReturnToNormal();
+                    //_initials[2].GetComponent<Flicker>().enabled = false;
                     break;
                 }
             case 2:
                 {
                     _initials[2].text = Alphabet[_currentLetterLast];
-                    _initials[0].GetComponent<Flicker>().enabled = false;
-                    _initials[1].GetComponent<Flicker>().enabled = false;
+                    _initials[0].GetComponent<Flicker>().ReturnToNormal();
+                    //_initials[0].GetComponent<Flicker>().enabled = false;
+                    _initials[1].GetComponent<Flicker>().ReturnToNormal();
+                    //_initials[1].GetComponent<Flicker>().enabled = false;
                     _initials[2].GetComponent<Flicker>().enabled = true;
                     break;
                 }
@@ -147,7 +188,7 @@ public class HighScoreController : MonoBehaviour {
         _scoreText.text = _numScore.ToString();
     }
 
-    private void CheckFullName(string name)
+    public void CheckFullName(string name)
     {
         _initials[0].text = name[0].ToString();
         _initials[1].text = name[1].ToString();
@@ -170,8 +211,11 @@ public class HighScoreController : MonoBehaviour {
         {
             _initialIndex = 2;
             _fullname = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+            _initials[0].GetComponent<Flicker>().ReturnToNormal();
             _initials[0].GetComponent<Flicker>().enabled = false;
+            _initials[1].GetComponent<Flicker>().ReturnToNormal();
             _initials[1].GetComponent<Flicker>().enabled = false;
+            _initials[2].GetComponent<Flicker>().ReturnToNormal();
             _initials[2].GetComponent<Flicker>().enabled = false;
             GameplayManager.instance._highScoreManager.UpdateNames();
             SaveRank();
@@ -203,6 +247,8 @@ public class HighScoreController : MonoBehaviour {
 
     private void ChangeLetter(float _value)
     {
+        AudioManager.instance.PlaySFX(_scrollSFX);
+
         if (_value > 0)
         {
             if (_initialIndex == 0)
@@ -262,10 +308,44 @@ public class HighScoreController : MonoBehaviour {
         }
     }
 
+    private void SaveName()
+    {
+        switch(Rank)
+        {
+            case 1:
+                {
+                    GameplayManager.instance._highScoreManager.TopScoreName1 = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+                    break;
+                }
+            case 2:
+                {
+                    GameplayManager.instance._highScoreManager.TopScoreName2 = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+                    break;
+                }
+            case 3:
+                {
+                    GameplayManager.instance._highScoreManager.TopScoreName3 = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+                    break;
+                }
+            case 4:
+                {
+                    GameplayManager.instance._highScoreManager.TopScoreName4 = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+                    break;
+                }
+            case 5:
+                {
+                    GameplayManager.instance._highScoreManager.TopScoreName5 = _initials[0].text.ToString() + _initials[1].text.ToString() + _initials[2].text.ToString();
+                    break;
+                }
+        }
+    }
+
     private void SaveRank()
     {
         //PlayerPrefs.SetFloat("Score" + Rank.ToString(), GameplayManager.instance._highScoreManager.TestScore);
         //PlayerPrefs.SetString("Name" + Rank.ToString(), _initials[0].text + _initials[1].text + _initials[2].text);
+        CanInput = false;
+        SaveName();
         GameplayManager.instance._highScoreManager.Save();
         Debug.Log("Save");
     }

@@ -57,7 +57,7 @@ public class PolyNavAgent : MonoBehaviour{
 	private event System.Action<bool> reachedCallback;
 
 
-	private Vector2 velocity          = Vector2.zero;
+	public Vector2 velocity          = Vector2.zero;
 	private float maxForce            = 100;
 	private int requests              = 0;
 	private List<Vector2> _activePath = new List<Vector2>();

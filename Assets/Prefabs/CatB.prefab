@@ -120,14 +120,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _becomeActiveDuration: 5
   _score: 200
-  _normalSpeed: 8
-  _scaredSpeed: 4
-  _deadSpeed: 10
-  _speedMultiplyer: 0
+  _normalSpeed: 5
+  _scaredSpeed: 3
+  _deadSpeed: 15
+  _speedMultiplyer: 0.05
   _distanceThreshold: 1
   _BehaviourTime: 0
   _maxBehaviourTime: 3
-  _runMultiplier: 1
   _deathSFX: {fileID: 8300000, guid: 8a753987418f5d64aaf41051e0b23ae4, type: 3}
   _enemyStates: 0
 --- !u!114 &114322229300285536
@@ -143,13 +142,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 0}
   maxSpeed: 5
-  mass: 110
-  stoppingDistance: 0
+  mass: 80
+  stoppingDistance: 1
   slowingDistance: 1
-  accelerationRate: 5
+  accelerationRate: 1000
   decelerationRate: 0
-  lookAheadDistance: 3
-  avoidRadius: 0.05
+  lookAheadDistance: 1
+  avoidRadius: 0.04
   centerOffset: {x: 0, y: 0}
   rotateTransform: 0
   rotateSpeed: 350
@@ -157,6 +156,7 @@ MonoBehaviour:
   restrict: 0
   closerPointOnInvalid: 1
   debugPath: 1
+  velocity: {x: 0, y: 0}
 --- !u!212 &212256341652999260
 SpriteRenderer:
   m_ObjectHideFlags: 1

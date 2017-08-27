@@ -51,7 +51,7 @@ public class GameplayManager : MonoBehaviour
     private void Start()
     {
         SingletonFunction();
-        //Debug.Log("Start");
+        Debug.Log("Start");
     }
 
     private void SingletonFunction()
@@ -221,7 +221,7 @@ public class GameplayManager : MonoBehaviour
         AddToScaredTimer(powerUpDuration);
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].SetState(EnemyBehavior.EnemyStates.Scared);
+            enemies[i].CheckIfScared();
         }
 
         player.GetComponent<PlayerMovement>().PlayPowerSFX();

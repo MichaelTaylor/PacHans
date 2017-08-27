@@ -7,15 +7,24 @@ public class TeleportLogic : MonoBehaviour {
     //public float _xPositionOffset;
     public Transform _oppositeTeleporter;
     public TeleportLogic _teleporterLogic;
+    public GameObject Player;
+    public float _Threshold;
     private bool _isOccupied;
 
     private void Start()
     {
         _teleporterLogic = _oppositeTeleporter.gameObject.GetComponent<TeleportLogic>();
+        Invoke("AddPlayer", 0.5f);
+    }
+
+    private void AddPlayer()
+    {
+        Player = GameplayManager.instance.player;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+
         if (_isOccupied) return;
         TeleportPlayer(collision.gameObject); 
     }
@@ -29,7 +38,7 @@ public class TeleportLogic : MonoBehaviour {
 
     public void TeleportPlayer(GameObject Player)
     {
-        Player.transform.position = _oppositeTeleporter.position;
-        _teleporterLogic._isOccupied = true;
+        Player.transform.position = new Vector3(_oppositeTeleporter.position.x + _teleporterLogic._Threshold, _oppositeTeleporter.position.y, _oppositeTeleporter.position.z); ;
+        //_teleporterLogic._isOccupied = true;
     }
 }

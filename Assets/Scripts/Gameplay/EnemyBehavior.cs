@@ -22,7 +22,7 @@ public class EnemyBehavior : MonoBehaviour {
     public float _distanceThreshold;
     public float _BehaviourTime;
     public float _maxBehaviourTime;
-    public float _runMultiplier;
+   // public float _runMultiplier;
     public AudioClip _deathSFX;
     public enum EnemyStates
     {
@@ -80,6 +80,12 @@ public class EnemyBehavior : MonoBehaviour {
 		_distance = Vector2.Distance(transform.position, Destination.position);
 	}
 
+    public void CheckIfScared()
+    {
+        if (_enemyStates == EnemyStates.Dead) return;
+        SetState(EnemyStates.Scared);
+    }
+
     public void SetState(EnemyStates newState)
     {
         //if (_enemyStates == EnemyStates.Dead) return;
@@ -117,6 +123,23 @@ public class EnemyBehavior : MonoBehaviour {
 					break;
 				}
 		}
+
+
+        if (_enemyStates == EnemyStates.Idle) return;
+
+        if (_polyNavAgent.activePath.Count == 0 || _polyNavAgent.velocity.magnitude < 0.75f)
+        {
+            Debug.Log("Changing");
+            if (_enemyStates == EnemyStates.Chasing)
+            {
+                SetState(EnemyStates.Wandering);
+            }
+            else if (_enemyStates == EnemyStates.Wandering)
+            {
+                SetState(EnemyStates.Chasing);
+            }
+            
+        }
     }
 
     private void Enemy_Wandering()
@@ -153,6 +176,7 @@ public class EnemyBehavior : MonoBehaviour {
         _anim.SetBool("IsScared", false);
         _polyNavAgent.maxSpeed = _normalSpeed;
         SetNewDestination(GameplayManager.instance.player.transform);
+        
     }
 
     private void Enemy_Scared()
@@ -189,14 +213,14 @@ public class EnemyBehavior : MonoBehaviour {
     {
         _polyNavAgent.maxSpeed = _deadSpeed;
         isDead = true;
-        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().isTrigger = true;
         SetNewDestination(GameplayManager.instance._enemyReturnPoint);
 
         if (_distance < _distanceThreshold)
         {
             SetState(EnemyStates.Chasing);
+            GetComponent<BoxCollider2D>().isTrigger = false;
             isDead = false;
-            Debug.Log("Unscared");
             _anim.SetBool("IsScared", false);
             _anim.SetBool("IsDead", false);
         }
