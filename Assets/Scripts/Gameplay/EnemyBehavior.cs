@@ -68,7 +68,11 @@ public class EnemyBehavior : MonoBehaviour {
     private IEnumerator BeginBehavior(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SetState(EnemyStates.Wandering);
+        if (_enemyStates != EnemyStates.Scared)
+        {
+            SetState(EnemyStates.Wandering);
+        }
+        
     }
 
 	// Update is called once per frame
@@ -125,7 +129,9 @@ public class EnemyBehavior : MonoBehaviour {
 		}
 
 
-        if (_enemyStates == EnemyStates.Idle) return;
+       /* if (_enemyStates == EnemyStates.Idle) return;
+        if (_enemyStates == EnemyStates.Scared) return;
+        if (_enemyStates == EnemyStates.Dead) return;
 
         if (_polyNavAgent.activePath.Count == 0 || _polyNavAgent.velocity.magnitude < 0.75f)
         {
@@ -137,9 +143,8 @@ public class EnemyBehavior : MonoBehaviour {
             else if (_enemyStates == EnemyStates.Wandering)
             {
                 SetState(EnemyStates.Chasing);
-            }
-            
-        }
+            }   
+        }*/
     }
 
     private void Enemy_Wandering()

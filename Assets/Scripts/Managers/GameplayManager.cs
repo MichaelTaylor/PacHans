@@ -91,7 +91,7 @@ public class GameplayManager : MonoBehaviour
         AudioManager.instance.PlaySFX(_musicIntro);
         scoreText.text = "Score: " + score.ToString();
         StartCoroutine(TimeResume(0.0000001f * 4.5f));
-
+        _isGameOver = false;
         if (_areLivesSetUp) return;
         SetUpLives();
     }
@@ -137,14 +137,13 @@ public class GameplayManager : MonoBehaviour
 
     public void UpdateLives(float _addToLives)
     {
-        Debug.Log("Lives");
         _lives += _addToLives;
         livesText.text = "Lives: " + _lives.ToString();
     }
 
     private void Update()
     {
-        if (_maxPellets <= 0) return;
+        if (_isGameOver) return;
 
         _pelletPercentage = (pellets.Count / _maxPellets);
         CheckMusicLevels(_pelletPercentage);
