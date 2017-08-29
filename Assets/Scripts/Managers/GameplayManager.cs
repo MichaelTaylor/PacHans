@@ -148,22 +148,10 @@ public class GameplayManager : MonoBehaviour
         _pelletPercentage = (pellets.Count / _maxPellets);
         CheckMusicLevels(_pelletPercentage);
         CheckScaredTimer();
+       // Debug.Log(pellets.Count);
 
         if (player == null) return;
-
-        if (score > 0)
-        {
-            if (pellets.Count <= 0 && !_isGameOver)
-            {
-                if (!player.GetComponent<PlayerMovement>().isDead)
-                {
-                    _isGameOver = true;
-                    StartWinGame();
-                    AudioManager.instance.MuteAllMusic();
-                    player.GetComponent<PlayerMovement>()._audioSource.mute = true;
-                }         
-            }
-        } 
+        TriggerWinConditions();
     }
 
     private void AddToScaredTimer(float _additionalTime)
@@ -233,6 +221,23 @@ public class GameplayManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].ReturnToLife();
+        }
+    }
+
+    public void TriggerWinConditions()
+    {
+        if (score > 0)
+        {
+            if (pellets.Count < 1 && !_isGameOver)
+            {
+                if (!player.GetComponent<PlayerMovement>().isDead)
+                {
+                    _isGameOver = true;
+                    StartWinGame();
+                    AudioManager.instance.MuteAllMusic();
+                    player.GetComponent<PlayerMovement>()._audioSource.mute = true;
+                }
+            }
         }
     }
 

@@ -130,6 +130,7 @@ public class PlayerMovement : MonoBehaviour {
                 if (!_LeftRaycasts[0]._isHit && !_LeftRaycasts[1]._isHit && !_LeftRaycasts[2]._isHit /*&& !_LeftRaycasts[3]._isHit && !_LeftRaycasts[4]._isHit*/)
                 {
                     moveState = MovementState.Left;
+                    GetComponent<SpriteRenderer>().flipX = false;
                 }
             }
             else if (horizontal > 0)
@@ -137,6 +138,7 @@ public class PlayerMovement : MonoBehaviour {
                 if (!_RightRaycasts[0]._isHit && !_RightRaycasts[1]._isHit && !_RightRaycasts[2]._isHit /*&& !_RightRaycasts[3]._isHit && !_RightRaycasts[4]._isHit*/)
                 {
                     moveState = MovementState.Right;
+                    GetComponent<SpriteRenderer>().flipX = true;
                 }
             }
         }

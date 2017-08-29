@@ -129,11 +129,11 @@ public class EnemyBehavior : MonoBehaviour {
 		}
 
 
-       /* if (_enemyStates == EnemyStates.Idle) return;
+        if (_enemyStates == EnemyStates.Idle) return;
         if (_enemyStates == EnemyStates.Scared) return;
         if (_enemyStates == EnemyStates.Dead) return;
 
-        if (_polyNavAgent.activePath.Count == 0 || _polyNavAgent.velocity.magnitude < 0.75f)
+        if (_polyNavAgent.activePath.Count == 0)
         {
             Debug.Log("Changing");
             if (_enemyStates == EnemyStates.Chasing)
@@ -144,11 +144,12 @@ public class EnemyBehavior : MonoBehaviour {
             {
                 SetState(EnemyStates.Chasing);
             }   
-        }*/
+        }
     }
 
     private void Enemy_Wandering()
     {
+        _polyNavAgent.maxSpeed = _normalSpeed;
         GetComponent<BoxCollider2D>().enabled = true;
         if (Destination == null)
         {
@@ -177,6 +178,7 @@ public class EnemyBehavior : MonoBehaviour {
     private void Enemy_Chasing()
     {
         //TODO:RUN TO PLAYER
+        _polyNavAgent.maxSpeed = _normalSpeed;
         GetComponent<BoxCollider2D>().enabled = true;
         _anim.SetBool("IsScared", false);
         _polyNavAgent.maxSpeed = _normalSpeed;

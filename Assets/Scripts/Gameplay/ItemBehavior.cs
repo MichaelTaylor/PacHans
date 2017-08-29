@@ -17,7 +17,7 @@ public class ItemBehavior : MonoBehaviour {
 
     private void Start()
     {
-        Invoke("AddToList", 0.1f);
+        Invoke("AddToList", 0.03f);
 	}
 
 	private void AddToList()
@@ -41,6 +41,7 @@ public class ItemBehavior : MonoBehaviour {
         if (itemType == ItemType.pellets)
         {
             AddPoints();
+            GameplayManager.instance.TriggerWinConditions();
         }
         else
         {
