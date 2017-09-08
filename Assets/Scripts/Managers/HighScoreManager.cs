@@ -83,7 +83,7 @@ public class HighScoreManager : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        /*if (Input.GetKeyDown(KeyCode.P))
         {
             
             SaveManager.SaveData(this);
@@ -95,7 +95,7 @@ public class HighScoreManager : MonoBehaviour {
             SaveManager.LoadScores();
             SaveManager.LoadNames();
             Debug.Log("Load");
-        }
+        }*/
     }
 
     public void UpdateScoreBoard()

@@ -10,8 +10,15 @@ public class UserInterfaceController : MonoBehaviour {
     public GameObject _highScoreScreen;
     public GameObject _gameOverScreen;
 
-    public void StartScreenToGameplay()
+    public void StartScreenToGameplay(float _seconds)
     {
+        StartCoroutine(TransitionStartToGameplay(_seconds));
+        GameplayManager.instance.ShowCoorsLogo();
+    }
+
+    public IEnumerator TransitionStartToGameplay(float _seconds)
+    {
+        yield return new WaitForSeconds(_seconds);
         GameplayManager.instance.Intro(false);
         GameplayManager.instance.SetUpLives();
         GameplayManager.instance.UpdateLevelNum(1);
@@ -20,7 +27,8 @@ public class UserInterfaceController : MonoBehaviour {
         _gameplayScreen.SetActive(true);
         _highScoreScreen.SetActive(false);
         _gameOverScreen.SetActive(false);
-        
+        GameplayManager.instance.SetGameState(GameplayManager.GameState.Gameplay);
+        GameplayManager.instance.ResetTransition();
     }
 
     public void StartScreenToHighScore()
@@ -30,22 +38,26 @@ public class UserInterfaceController : MonoBehaviour {
         _highScoreScreen.SetActive(true);
         _gameOverScreen.SetActive(false);
         GameplayManager.instance.LoadNextScene("High Score Scene");
-        StartCoroutine(StartStarScreenTimer(5f));
+        StartCoroutine(StartStarScreenTimer(4f));
+        GameplayManager.instance.SetGameState(GameplayManager.GameState.HighScore);
     }
 
-    public void HighScoreToStartScreen()
+    public IEnumerator HighScoreToStartScreen(float _seconds, bool _showLogo)
     {
+        yield return new WaitForSeconds(_seconds);
         _startScreen.SetActive(true);
         _gameplayScreen.SetActive(false);
         _highScoreScreen.SetActive(false);
         _gameOverScreen.SetActive(false);
         GameplayManager.instance.LoadNextScene("Start Screen Scene");
+        GameplayManager.instance.SetGameState(GameplayManager.GameState.StartMenu);
+        GameplayManager.instance.ResetTransition();
     }
 
     private IEnumerator StartStarScreenTimer(float _seconds)
     {
         yield return new WaitForSeconds(_seconds);
-        HighScoreToStartScreen();
+        StartCoroutine(HighScoreToStartScreen(0f,false));
     }
 
 	public void GameplayToGameOver(float score)
@@ -74,7 +86,7 @@ public class UserInterfaceController : MonoBehaviour {
     private IEnumerator StartGameOverTimer(float _seconds)
     {
         yield return new WaitForSeconds(_seconds);
-        GameOverToStartScreen();
+        GameOverToStartScreen(0f,false);
     }
 
     public void GameOverToGameplay()
@@ -86,16 +98,29 @@ public class UserInterfaceController : MonoBehaviour {
         GameplayManager.instance.Intro(false);
         GameplayManager.instance.SetUpLives();
         GameplayManager.instance.LoadNextScene("Main Scene");
+        GameplayManager.instance.ResetTransition();
     }
 
-    public void GameOverToStartScreen()
+    public void GameOverToStartScreen(float _seconds, bool _showLogo)
     {
+        StartCoroutine(TransitionGameOverToStart(_seconds));
+        if (!_showLogo) return;
+        GameplayManager.instance.ShowPPU512Logo();
+        Destroy(GameObject.Find("Filler background"));
+    }
+
+    public IEnumerator TransitionGameOverToStart(float _seconds)
+    {
+        yield return new WaitForSeconds(_seconds);
         _startScreen.SetActive(true);
         _gameplayScreen.SetActive(false);
         _highScoreScreen.SetActive(false);
         _gameOverScreen.SetActive(false);
         GameplayManager.instance.ResetScore();
         GameplayManager.instance.LoadNextScene("Start Screen Scene");
+        GameplayManager.instance.SetGameState(GameplayManager.GameState.StartMenu);
+        GameplayManager.instance.ResetTransition();
+        
     }
 
     public void QuitGame()

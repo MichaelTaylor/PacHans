@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
-   // public bool _areLivesSetUp { get; set; }
+    // public bool _areLivesSetUp { get; set; }
     public float _startingLives;
     private float _lives;
-    private float _levelNum;
+    public float _levelNum;
     private float score;
     public float _gainLifeThreshold;
     public Text livesText;
@@ -35,7 +35,7 @@ public class GameplayManager : MonoBehaviour
     public float _pelletPercentage;
 
     public Transform _enemyReturnPoint;
-    
+
     public bool poweredUp;
     public float powerUpDuration;
 
@@ -47,11 +47,34 @@ public class GameplayManager : MonoBehaviour
     public HighScoreManager _highScoreManager;
     public static GameplayManager instance;
 
+    [Header("Menu control variables")]
+    
+
+    //UI VARIABLES
+    private int _startScreenIndex;
+    public Button _startButton;
+    public Button _highScoreButton;
+
+    public enum GameState
+    {
+        StartMenu,
+        Gameplay,
+        HighScore
+    }
+    public GameState _gameState;
+
+    [Header("Transition Variables")]
+    public GameObject _background;
+    public GameObject _ppu512Logo;
+    public GameObject _coorsLogo;
+    public Color _coorsColor;
+    public Color _logoColor;
+
     // Use this for initialization
     private void Start()
     {
         SingletonFunction();
-        Debug.Log("Start");
+        _background.SetActive(true);
     }
 
     private void SingletonFunction()
@@ -143,15 +166,115 @@ public class GameplayManager : MonoBehaviour
 
     private void Update()
     {
+        CheckGameState();
+    }
+
+    public void SetGameState(GameState _newState)
+    {
+        _gameState = _newState;
+    }
+
+    private void CheckGameState()
+    {
+        switch(_gameState)
+        {
+            case GameState.StartMenu:
+                {
+                    StartMenuBehavior();
+                    break;
+                }
+            case GameState.Gameplay:
+                {
+                    GameplayBehavior();
+                    break;
+                }
+            case GameState.HighScore:
+                {
+                    break;
+                }
+        }
+    }
+
+    private void StartMenuBehavior()
+    {
+        if (Input.GetAxis("Vertical") > 0 && Input.GetButtonDown("Vertical"))
+        {
+            _startScreenIndex -= 1;
+        }
+        else if (Input.GetAxis("Vertical") < 0 && Input.GetButtonDown("Vertical"))
+        {
+            _startScreenIndex += 1;
+        }
+
+        if (_startScreenIndex > 1)
+        {
+            _startScreenIndex = 0;
+        }
+        else if (_startScreenIndex < 0)
+        {
+            _startScreenIndex = 1;
+        }
+
+        if (_startScreenIndex == 0)
+        {
+            _startButton.Select();
+        }
+        else
+        {
+            _highScoreButton.Select();
+        }
+
+        if (Input.GetButtonDown("Submit"))
+        {
+            if (_startScreenIndex == 0)
+            {
+                _userInterfaceController.StartScreenToGameplay(3f);
+                //ShowCoorsLogo();
+            }
+            else
+            {
+                _userInterfaceController.StartScreenToHighScore();
+            }
+        }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            _userInterfaceController.QuitGame();
+        }
+    }
+
+    private void GameplayBehavior()
+    {
         if (_isGameOver) return;
 
         _pelletPercentage = (pellets.Count / _maxPellets);
         CheckMusicLevels(_pelletPercentage);
         CheckScaredTimer();
-       // Debug.Log(pellets.Count);
+        // Debug.Log(pellets.Count);
 
         if (player == null) return;
         TriggerWinConditions();
+    }
+
+    public void ShowCoorsLogo()
+    {
+        _coorsLogo.SetActive(true);
+        _background.SetActive(false);
+        Camera.main.backgroundColor = _coorsColor;
+    }
+
+    public void ShowPPU512Logo()
+    {
+        _ppu512Logo.SetActive(true);
+        _background.SetActive(false);
+        Camera.main.backgroundColor = _logoColor;
+    }
+
+    public void ResetTransition()
+    {
+        _ppu512Logo.SetActive(false);
+        _coorsLogo.SetActive(false);
+        _background.SetActive(true);
     }
 
     private void AddToScaredTimer(float _additionalTime)

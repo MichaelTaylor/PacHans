@@ -35,6 +35,7 @@ public class HighScoreController : MonoBehaviour {
     {
         //_score = PlayerPrefs.GetFloat("Score" + Rank.ToString()).ToString();
         //_fullname = PlayerPrefs.GetString("Name" + Rank.ToString());
+        GameplayManager.instance._levelNum = 0;
         GetScore();
         GetName();
         CheckScore();
@@ -137,6 +138,7 @@ public class HighScoreController : MonoBehaviour {
                 {
                     _initials[0].text = Alphabet[_currentLetterFirst];
                     _initials[0].GetComponent<Flicker>().enabled = true;
+                    _initials[0].GetComponent<Flicker>()._isFlickering = true;
                     _initials[1].GetComponent<Flicker>().ReturnToNormal();
                     //_initials[1].GetComponent<Flicker>().enabled = false;
                     _initials[2].GetComponent<Flicker>().ReturnToNormal();
@@ -149,6 +151,7 @@ public class HighScoreController : MonoBehaviour {
                     _initials[0].GetComponent<Flicker>().ReturnToNormal();
                     //_initials[0].GetComponent<Flicker>().enabled = false;
                     _initials[1].GetComponent<Flicker>().enabled = true;
+                    _initials[1].GetComponent<Flicker>()._isFlickering = true;
                     _initials[2].GetComponent<Flicker>().ReturnToNormal();
                     //_initials[2].GetComponent<Flicker>().enabled = false;
                     break;
@@ -161,6 +164,7 @@ public class HighScoreController : MonoBehaviour {
                     _initials[1].GetComponent<Flicker>().ReturnToNormal();
                     //_initials[1].GetComponent<Flicker>().enabled = false;
                     _initials[2].GetComponent<Flicker>().enabled = true;
+                    _initials[2].GetComponent<Flicker>()._isFlickering = true;
                     break;
                 }
         }
@@ -197,12 +201,12 @@ public class HighScoreController : MonoBehaviour {
 
     private void SwitchInitial()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Submit"))
         {
             AudioManager.instance.PlaySFX(_confirmSFX);
             _initialIndex++;
         }
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Cancel"))
         {
             _initialIndex--;
         }
@@ -219,7 +223,8 @@ public class HighScoreController : MonoBehaviour {
             _initials[2].GetComponent<Flicker>().enabled = false;
             GameplayManager.instance._highScoreManager.UpdateNames();
             SaveRank();
-            GameplayManager.instance._userInterfaceController.GameOverToStartScreen();
+            GameplayManager.instance._userInterfaceController.GameOverToStartScreen(3f, true);
+            GameplayManager.instance.ShowPPU512Logo();
         }
         else if (_initialIndex < 0)
         {
