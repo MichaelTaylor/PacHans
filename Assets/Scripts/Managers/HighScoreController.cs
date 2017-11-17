@@ -352,6 +352,6 @@ public class HighScoreController : MonoBehaviour {
         CanInput = false;
         SaveName();
         GameplayManager.instance._highScoreManager.Save();
-        Debug.Log("Save");
+       // Debug.Log("Save");
     }
 }

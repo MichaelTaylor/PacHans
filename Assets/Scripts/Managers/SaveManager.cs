@@ -67,6 +67,6 @@ public class HighScoreData
         Names[2] = highScoreManager.TopScoreName3;
         Names[3] = highScoreManager.TopScoreName4;
         Names[4] = highScoreManager.TopScoreName5;
-        Debug.Log(Names[4]);
+        //Debug.Log(Names[4]);
     }
 }

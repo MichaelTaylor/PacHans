@@ -135,7 +135,7 @@ public class EnemyBehavior : MonoBehaviour {
 
         if (_polyNavAgent.activePath.Count == 0)
         {
-            Debug.Log("Changing");
+            //Debug.Log("Changing");
             if (_enemyStates == EnemyStates.Chasing)
             {
                 SetState(EnemyStates.Wandering);

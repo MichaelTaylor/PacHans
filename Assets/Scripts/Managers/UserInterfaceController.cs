@@ -21,6 +21,7 @@ public class UserInterfaceController : MonoBehaviour {
         yield return new WaitForSeconds(_seconds);
         GameplayManager.instance.Intro(false);
         GameplayManager.instance.SetUpLives();
+        GameplayManager.instance._levelNum = 0;
         GameplayManager.instance.UpdateLevelNum(1);
         GameplayManager.instance.LoadNextScene("Main Scene");
         _startScreen.SetActive(false);
@@ -125,6 +126,7 @@ public class UserInterfaceController : MonoBehaviour {
 
     public void QuitGame()
     {
+        Debug.Log("Quit");
         Application.Quit();
     }
 }

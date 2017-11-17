@@ -2568,7 +2568,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08a0ccbb0de646d28c881314ede5ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingLives: 1
+  _startingLives: 3
+  _levelNum: 0
   _gainLifeThreshold: 10000
   livesText: {fileID: 114000936646605708}
   levelText: {fileID: 114624871779006864}

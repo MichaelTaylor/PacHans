@@ -237,7 +237,7 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
         {
             _userInterfaceController.QuitGame();
         }
