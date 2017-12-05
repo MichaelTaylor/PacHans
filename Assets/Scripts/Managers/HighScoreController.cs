@@ -201,12 +201,13 @@ public class HighScoreController : MonoBehaviour {
 
     private void SwitchInitial()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Submit"))
+        if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Submit")) //Enter
         {
+            //Debug.Log("Enter");
             AudioManager.instance.PlaySFX(_confirmSFX);
             _initialIndex++;
         }
-        else if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Cancel"))
+        else if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Alpha1)) //Backspace
         {
             _initialIndex--;
         }

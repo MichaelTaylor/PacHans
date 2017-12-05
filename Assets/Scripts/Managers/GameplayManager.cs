@@ -53,7 +53,11 @@ public class GameplayManager : MonoBehaviour
     //UI VARIABLES
     private int _startScreenIndex;
     public Button _startButton;
+    public Sprite _startDefault;
+    public Sprite _startHighlight;
     public Button _highScoreButton;
+    public Sprite _highscoreDefault;
+    public Sprite _highScoreHighlight;
 
     public enum GameState
     {
@@ -215,31 +219,38 @@ public class GameplayManager : MonoBehaviour
             _startScreenIndex = 1;
         }
 
-        if (_startScreenIndex == 0)
-        {
-            _startButton.Select();
-        }
-        else
-        {
-            _highScoreButton.Select();
-        }
-
         if (Input.GetButtonDown("Submit"))
         {
             if (_startScreenIndex == 0)
             {
-                _userInterfaceController.StartScreenToGameplay(3f);
+                //_userInterfaceController.StartScreenToGameplay(3f);
+                _startButton.onClick.Invoke();
                 //ShowCoorsLogo();
             }
             else
             {
-                _userInterfaceController.StartScreenToHighScore();
+                //Debug.Log("High Score");
+                _highScoreButton.onClick.Invoke();
+                //_userInterfaceController.StartScreenToHighScore();
             }
+        }
+
+        if (_startScreenIndex == 0)
+        {
+            //_startButton.Select();
+            _startButton.GetComponent<Image>().sprite = _startHighlight;
+            _highScoreButton.GetComponent<Image>().sprite = _highscoreDefault;
+        }
+        else
+        {
+            //_highScoreButton.Select();
+            _startButton.GetComponent<Image>().sprite = _startDefault;
+            _highScoreButton.GetComponent<Image>().sprite = _highScoreHighlight;
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _userInterfaceController.QuitGame();
+            //_userInterfaceController.QuitGame();
         }
     }
 

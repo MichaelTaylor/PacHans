@@ -147,9 +147,54 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114648243788765084, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartScreenToHighScore
+      objectReference: {fileID: 0}
+    - target: {fileID: 114348176714811568, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+        type: 2}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1102410841}
+    - target: {fileID: 114377008678313900, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+        type: 2}
+      propertyPath: _startHighlight
+      value: 
+      objectReference: {fileID: 21300000, guid: d8baf59e6f884f34898f6d6d85fa59ac,
+        type: 3}
+    - target: {fileID: 114348176714811568, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+        type: 2}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377008678313900, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+        type: 2}
+      propertyPath: _highScoreHighlight
+      value: 
+      objectReference: {fileID: 21300000, guid: ded06c5928cf58342be4372167993082,
+        type: 3}
+    - target: {fileID: 114377008678313900, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+        type: 2}
+      propertyPath: _startDefault
+      value: 
+      objectReference: {fileID: 21300000, guid: dbf5527d8bc37c540808c6d8972c8f3d,
+        type: 3}
+    - target: {fileID: 114377008678313900, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+        type: 2}
+      propertyPath: _highscoreDefault
+      value: 
+      objectReference: {fileID: 21300000, guid: 8f72a13d6bebd844683bc4bd89d02d72,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f164d4dac3174ed4da9da5a7bc5b604f, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1102410841 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114045636453705728, guid: f164d4dac3174ed4da9da5a7bc5b604f,
+    type: 2}
+  m_PrefabInternal: {fileID: 122539395}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1313737062
 GameObject:
   m_ObjectHideFlags: 0

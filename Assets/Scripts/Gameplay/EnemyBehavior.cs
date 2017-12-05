@@ -286,7 +286,7 @@ public class EnemyBehavior : MonoBehaviour {
             {
                 SetState(EnemyStates.Idle);
                 other.gameObject.GetComponent<PlayerMovement>().isDead = true;
-                GameplayManager.instance.StartGameOver();
+                //GameplayManager.instance.StartGameOver();
                 _polyNavAgent.maxSpeed = 0f;
             }
         }

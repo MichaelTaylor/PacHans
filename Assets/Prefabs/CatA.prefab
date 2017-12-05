@@ -123,7 +123,7 @@ MonoBehaviour:
   _normalSpeed: 4
   _scaredSpeed: 2
   _deadSpeed: 15
-  _speedMultiplyer: 0.05
+  _speedMultiplyer: 0.2
   _distanceThreshold: 1
   _BehaviourTime: 0
   _maxBehaviourTime: 3

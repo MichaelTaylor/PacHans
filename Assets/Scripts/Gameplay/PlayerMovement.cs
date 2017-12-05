@@ -110,6 +110,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             GameplayManager.instance.ShowSmoke(transform.position);
             GameplayManager.instance.UpdateLives(-1);
+            GameplayManager.instance.StartGameOver();
             gameObject.SetActive(false);
             AudioManager.instance.MuteAllMusic();
             _audioSource.mute = true;
