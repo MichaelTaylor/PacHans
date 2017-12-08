@@ -223,13 +223,14 @@ public class GameplayManager : MonoBehaviour
         {
             if (_startScreenIndex == 0)
             {
+                Debug.Log("Go to Gameplay");
                 //_userInterfaceController.StartScreenToGameplay(3f);
                 _startButton.onClick.Invoke();
                 //ShowCoorsLogo();
             }
             else
             {
-                //Debug.Log("High Score");
+                Debug.Log("Go to High Score");
                 _highScoreButton.onClick.Invoke();
                 //_userInterfaceController.StartScreenToHighScore();
             }
@@ -251,6 +252,14 @@ public class GameplayManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
         {
             //_userInterfaceController.QuitGame();
+        }
+    }
+
+    private void OnGUI()
+    {
+        if (Event.current.Equals(Event.KeyboardEvent("[enter]")))
+        {
+            Debug.Log("Enter");
         }
     }
 
